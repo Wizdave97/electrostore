@@ -8,6 +8,14 @@ import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
 const theme= createMuiTheme({
+    overrides:{
+        MuiTypography:{
+            'body1':{
+                fontFamily:'"PT Sans", "Roboto", sans-serif'
+            }  
+        }
+    },
+    typography:{useNextVariants:true},
     palette:{
         type:'light',
         primary:{
