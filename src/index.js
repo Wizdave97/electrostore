@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { red,white } from '@material-ui/core/colors';
+import { red,orange } from '@material-ui/core/colors';
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
@@ -24,6 +24,7 @@ const theme= createMuiTheme({
         secondary:{
             main:'#0d47a1'
         },
+        action:orange,
         error:red,
         contrastThreshold: 3,
         tonalOffset: 0.2
