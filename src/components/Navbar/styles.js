@@ -15,9 +15,23 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
         padding:'0',
         margin:'0',
     },
+    menuIcon:{
+        width:'48px',
+        height:'48px',
+        '&:hover':{
+            backgroundColor: fade(theme.palette.primary.dark, 0.15)
+        },
+        cursor:'pointer'
+    },
     logo:{
         width:'100%',
         height:'48px'
+    },
+    wishlist:{
+        display:'none'
+    },
+    account:{
+        display:'none'
     },
     menuItems:{
         display:'none',
@@ -67,15 +81,12 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
         alignItems: 'center',
         justifyContent: 'center',
       },
-    '@media screen and (max-width:663px)':{
+    '@media screen and (max-width:767px)':{
         search:{
             display:'none'
         }
     },
-    '@media screen and (min-width:664px)':{
-        menuIcon:{
-            display:'none'
-        },
+    '@media screen and (min-width:768px)':{
         menuItems:{
             display:'flex'
         },
@@ -84,6 +95,16 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
         },
         logoText:{
             flexGrow:0
+        }
+    },
+    '@media screen and (min-width:860px)':{
+        wishlist:{
+            display:'flex'
+        }
+    },
+    '@media screen and (min-width:1024px)':{
+        account:{
+            display:'flex'
         }
     }
 })

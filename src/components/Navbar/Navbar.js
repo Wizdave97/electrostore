@@ -28,6 +28,8 @@ const navbar = props =>{
             <div className={classes.menuItems}>
               <NavItem>Home</NavItem>
               <NavItem>Categories</NavItem>
+              <NavItem show={classes.wishlist}>My Wishlist</NavItem>
+              <NavItem show={classes.account}>My Account</NavItem>
               <NavItem><ShoppingCart/></NavItem>
             </div>
             <Menu aria-haspopup="true" className={classes.menuIcon}/>
