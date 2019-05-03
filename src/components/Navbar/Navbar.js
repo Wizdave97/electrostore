@@ -30,12 +30,12 @@ const navbar = props =>{
               <NavItem>Categories</NavItem>
               <NavItem show={classes.wishlist}>My Wishlist</NavItem>
               <NavItem show={classes.account}>My Account</NavItem>
-              <NavItem><ShoppingCart/></NavItem>
+              <NavItem><ShoppingCart aria-label='cart'/></NavItem>
             </div>
             <Menu onClick={()=>props.toggleSideDrawer()} aria-haspopup="true" role='button' tabIndex='0' className={classes.menuIcon}/>
         </Toolbar>
        </AppBar>
    )
-} 
+}
 
 export default withStyles(styles)(navbar);

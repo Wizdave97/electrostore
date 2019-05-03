@@ -7,7 +7,7 @@ const sideDrawer = props => {
     const { classes }= props;
     return(
         <Paper className={[classes.root, props.show?classes.show:''].join(' ')} square={true}>
-
+          <div className={classes.profile}></div>
         </Paper>
     )
 }
