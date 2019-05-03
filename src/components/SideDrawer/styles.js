@@ -25,6 +25,13 @@ const styles = theme=>({
       width:'100%',
       height:'25%',
       backgroundColor:theme.palette.secondary.light
+    },
+    list:{
+      width:'100%',
+      flexGrow:1,
+      '& a':{
+        textDecoration:'none'
+      }
     }
 
 })
