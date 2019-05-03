@@ -4,16 +4,17 @@
         width:'100%',
         display:'flex',
         flexWrap:'wrap',
+        order:1,
         transition:'transform 0.5s'
     },
     show:{
-        translate:'translate(-80%)',
+        transform:'translate(-80%)',
         [theme.breakpoints.up('sm')]: {
-            translate:'translate(-50%)'
+            transform:'translate(-50%)'
           },
         [theme.breakpoints.up('md')]: {
-            translate:'translate(-30%)'
-          }    
+            transform:'translate(-30%)'
+          }
     },
     main:{
         height:'calc(100% - 64px)',
