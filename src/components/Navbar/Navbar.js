@@ -32,7 +32,7 @@ const navbar = props =>{
               <NavItem show={classes.account}>My Account</NavItem>
               <NavItem><ShoppingCart/></NavItem>
             </div>
-            <Menu aria-haspopup="true" role='button' tabIndex='0' className={classes.menuIcon}/>
+            <Menu onClick={()=>props.toggleSideDrawer()} aria-haspopup="true" role='button' tabIndex='0' className={classes.menuIcon}/>
         </Toolbar>
        </AppBar>
    )

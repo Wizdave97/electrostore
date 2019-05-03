@@ -6,8 +6,9 @@ import styles from './styles';
 const sideDrawer = props => {
     const { classes }= props;
     return(
-        <Paper square={true}>
+        <Paper className={[classes.root, props.show?classes.show:''].join(' ')} square={true}>
 
         </Paper>
     )
 }
+export default withStyles(styles)(sideDrawer);

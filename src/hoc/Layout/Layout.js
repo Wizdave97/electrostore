@@ -3,14 +3,23 @@ import { Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Navbar from '../../components/Navbar/Navbar';
 import styles from './styles';
+import SideDrawer from '../../components/SideDrawer/SideDrawer';
 
 class Layout extends Component {
-
+    state={
+        showSideDrawer:false
+    }
+    toggleSideDrawerHandler = ()=>{
+        this.setState(state=>({
+            showSideDrawer:!state.showSideDrawer    
+        }))
+    }
     render(){
         const { classes } = this.props
         return(
             <Fragment>
-                <Navbar/>
+                <div className={[classes.root,this.state.showSideDrawer?classes.show:''].join(' ')} >
+                <Navbar toggleSideDrawer={this.toggleSideDrawerHandler}/>
                 <main className={classes.main} style={{padding:8}}>
                     <Grid 
                         container 
@@ -19,6 +28,8 @@ class Layout extends Component {
                         {this.props.children}
                         </Grid>
                 </main>
+                </div>
+                <SideDrawer show={this.state.showSideDrawer}/>
             </Fragment>
         )
     }
