@@ -12,7 +12,10 @@ const theme= createMuiTheme({
         MuiTypography:{
             'body1':{
                 fontFamily:'"PT Sans", "Roboto", sans-serif'
-            }  
+            } ,
+            'h4':{
+              fontFamily:'"Sofia", "Roboto", sans-serif'
+            }
         }
     },
     typography:{useNextVariants:true},
@@ -28,7 +31,7 @@ const theme= createMuiTheme({
         error:red,
         contrastThreshold: 3,
         tonalOffset: 0.2
-        
+
     }
 })
 ReactDOM.render(

@@ -3,7 +3,7 @@ html,body {
   padding: 0;
   height:100%;
   width:100%;
-  font-family: "PT Sans", "Roboto", 
+  font-family: "PT Sans", "Roboto",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -15,7 +15,7 @@ code {
 }
 
 #root {
-  height:100%;
+  min-height:100%;
   width:100%;
   display: flex;
 }
