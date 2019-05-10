@@ -5,7 +5,9 @@ const styles = theme =>({
     height:'auto',
     overflow:'hidden',
     boxSizing:'border-box',
-    '&:hover .Item-media-238 .addToCart-button-241':{
+    margin:'5px 0',
+    cursor:'pointer',
+    '&:hover .Item-media-277 .addToCart-button-280':{
       transform:'translate(0%,0%) !important',
     }
   },
@@ -18,6 +20,7 @@ const styles = theme =>({
     '& img':{
       maxWidth:'100%',
       height:'auto',
+      animation:'scaleup 0.5s linear 2s',
       transition:'transform 2s'
     },
     '&:hover img':{
@@ -31,8 +34,19 @@ const styles = theme =>({
     boxSizing:'border-box',
     justifyContent:'space-between'
   },
-  name:{
-    flex:1
+  text:{
+    color:theme.palette.secondary.dark,
+    [theme.breakpoints.down('xs')]:{
+      fontSize:'0.8rem'
+    }
+  },
+  '@keyframes scaleup':{
+    from:{
+      transform:'scale(0.5,0.5)'
+    },
+    to:{
+      transform:'scale(1,1)'
+    }
   }
 })
 

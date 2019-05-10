@@ -4,16 +4,18 @@ import classes from './Spinner.module.css';
 
 const spinner = props =>{
   return (
-    <div className={classes['lds-roller']}>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+    <div className={classes['container']}>
+      <div className={classes['lds-roller']}>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+  </div>
   )
 }
 

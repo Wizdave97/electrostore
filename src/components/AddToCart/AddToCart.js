@@ -15,7 +15,10 @@ const styles= theme=>({
     transform:'translate(100%,100%)',
     transition:'transform 0.5s',
     '&:hover':{
-      backgroundColor:theme.palette.secondary.dark
+      backgroundColor:theme.palette.action
+    },
+    [theme.breakpoints.down('xs')]:{
+      transform:'translate(0%,0%)'
     }
   }
 })

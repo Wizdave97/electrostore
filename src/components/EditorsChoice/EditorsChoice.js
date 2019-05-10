@@ -7,9 +7,14 @@ const editorsChoice = props =>{
   const { classes } = props;
   return(
     <div className={classes.editorsChoice}>
-      <div className={classes.item}>
-          <Item/>
-      </div>
+      {props.editors_choice.map((data,index) =>{
+        return (
+          <div key={index} className={classes.item}>
+              <Item data={data}/>
+          </div>
+        )
+      })}
+
     </div>
   )
 }

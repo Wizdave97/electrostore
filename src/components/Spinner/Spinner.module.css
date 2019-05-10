@@ -1,8 +1,15 @@
+.container{
+  width:100%;
+  margin: auto 0;
+  display: flex;
+}
 .lds-roller {
   display: inline-block;
   position: relative;
   width: 64px;
   height: 64px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .lds-roller div {
   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
@@ -15,7 +22,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #fff;
+  background: #ccc;
   margin: -3px 0 0 -3px;
 }
 .lds-roller div:nth-child(1) {

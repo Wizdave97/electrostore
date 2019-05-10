@@ -6,16 +6,16 @@ const styles = theme => ({
     height:'auto',
     padding:0,
     margin:0,
-    justifyContent:'flex-start',
+    justifyContent:'space-between',
     boxSizing:'border-box'
   },
   item:{
     width:'45%',
     [theme.breakpoints.up('sm')]:{
-      width:'33%'
+      width:'30%'
     },
     [theme.breakpoints.up('md')]:{
-      width:'25%'
+      width:'23%'
     }
   }
 
