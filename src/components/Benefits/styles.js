@@ -11,15 +11,19 @@ const styles= theme=>({
     }
   },
   card:{
-    width:'20%',
-    backgroundColor:'#fff',
+    width:'33%',
+    backgroundColor:'#fff'
+  },
+  img:{
+    width:'60%',
+    margin:'0 auto',
     [theme.breakpoints.up('sm')]:{
-      width:'10%'
-    },
-    '& img':{
-      width:'100%'
+      width:'50%'
+    }},
+    icon:{
+      width:'100%',
+      height:'100%'
     }
-  }
 })
 
 export default styles;

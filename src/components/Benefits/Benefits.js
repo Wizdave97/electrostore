@@ -1,20 +1,18 @@
-import React, { useState,useEffect } from 'react';
+import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
-import FreeShipping from '../../assets/free_shipping.png';
-import Mob from '../../assets/mob.png';
-import Pod from '../../assets/pod.jpg';
+import { LocalShipping, Money, Payment} from '@material-ui/icons';
 
-const resizeImages =(imageURL)=>{
+/*const resizeImages =(imageURL)=>{
   let canvas=document.createElement('canvas')
   return new Promise(resolve=>{
     let image=new Image();
     image.onload = () => {
       const context = canvas.getContext('2d')
-      if (image.height > 50) {
-        image.width *= 50 / image.height
-        image.height = 50
+      if (image.height > 100) {
+        image.width *= 100 / image.height
+        image.height = 100
       }
 
       context.clearRect(0, 0, canvas.width, canvas.height)
@@ -28,20 +26,23 @@ const resizeImages =(imageURL)=>{
 
     image.src = imageURL
   })
-}
+}*/
+
+
 
 const Benefits = props =>{
   const { classes } = props;
-  const initialState={fs:'',pod:'',mob:''}
+  /*const initialState={fs:'',pod:'',mob:''}
   const [state, setState]=useState(initialState)
-  /*useEffect(()=>{
-    resizeImages(Mob).then(url=>{
-      setState(state=>({
-        ...state,mob:url
-      }))
-    })
-  })*/
-
+  useEffect(()=>{
+    if(!state.mob){
+      resizeImages(Mob).then(url=>{
+        setState(state=>({
+          ...state,mob:url
+        }))
+      })
+    }
+  })
     useEffect(()=>{
       if(!state.pod){
         resizeImages(Pod).then(url=>{
@@ -51,14 +52,28 @@ const Benefits = props =>{
         })
       }
     })
-
+    useEffect(()=>{
+      if(!state.fs){
+        resizeImages(FS).then(url=>{
+          setState(state=>({
+            ...state,fs:url
+          }))
+        })
+      }
+    })*/
 
 
   return (
       <div className={classes.benefits}>
-        <div className={classes.card}><img src={FreeShipping} alt="pay on delivery" /><Typography variant='body1' align='center'>Free shipping</Typography></div>
-        <div className={classes.card}>{state.pod?<img src={state.pod} alt="pay on delivery" />:''}<Typography variant='body1' align='center'>Pay on delivery</Typography></div>
-        <div className={classes.card}> <img src={Mob} alt="Money back guarantee" /><Typography variant='body1' align='center'>Money back guarantee</Typography></div>
+        <div className={classes.card}>
+          <div className={classes.img}><LocalShipping className={classes.icon} aria-label="free shipping"/></div>
+          <Typography variant='body1' align='center'>Free shipping</Typography></div>
+        <div className={classes.card}>
+          <div className={classes.img}><Payment className={classes.icon} aria-label="pay on delivery"/></div>
+          <Typography variant='body1' align='center'>Pay on delivery</Typography></div>
+        <div className={classes.card}>
+          <div className={classes.img}> <Money className={classes.icon} aria-label="money back guarantee"/></div>
+          <Typography variant='body1' align='center'>Money back guarantee</Typography></div>
       </div>
   )
 }
