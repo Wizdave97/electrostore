@@ -6,7 +6,7 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { createStore, applyMiddleware, combineReducers , compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { red,orange } from '@material-ui/core/colors';
+import { red } from '@material-ui/core/colors';
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import { auth, cart, products } from './store/reducers';
@@ -38,8 +38,9 @@ const theme= createMuiTheme({
         secondary:{
             main:'#0d47a1'
         },
-        action:orange,
-        error:red,
+        error:{
+          main:red[500],
+        },
         contrastThreshold: 3,
         tonalOffset: 0.2
 

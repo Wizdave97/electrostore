@@ -27,7 +27,7 @@ const navbar = props =>{
           </div>
             <div className={classes.menuItems}>
               <NavItem>Home</NavItem>
-              <NavItem>Categories</NavItem>
+              <NavItem>Products</NavItem>
               <NavItem show={classes.wishlist}>My WishList</NavItem>
               <NavItem show={classes.account}>My Account</NavItem>
               <NavItem><ShoppingCart aria-label='cart'/></NavItem>

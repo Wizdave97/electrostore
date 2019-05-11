@@ -7,7 +7,7 @@ const styles = theme =>({
     boxSizing:'border-box',
     margin:'5px 0',
     cursor:'pointer',
-    '&:hover .Item-media-277 .addToCart-button-280':{
+    '&:hover .Item-media-277 .addToButton-button-282':{
       transform:'translate(0%,0%) !important',
     }
   },
@@ -33,6 +33,24 @@ const styles = theme =>({
     padding:'2px 8px',
     boxSizing:'border-box',
     justifyContent:'space-between'
+  },
+  wishlist:{
+    left:0,
+    bottom:0,
+    borderTopRightRadius:'0.5rem',
+    transform:'translate(-100%,-100%)',
+    [theme.breakpoints.down('xs')]:{
+      transform:'translate(0%,0%) !important'
+    }
+  },
+  cart:{
+    right:0,
+    bottom:0,
+    borderTopLeftRadius:'0.5rem',
+    transform:'translate(100%,100%)',
+    [theme.breakpoints.down('xs')]:{
+      transform:'translate(0%,0%) !important'
+    }
   },
   text:{
     color:theme.palette.secondary.dark,
