@@ -19,7 +19,7 @@ const styles= theme=>({
 const addToButton = props =>{
   const {classes}= props
   return(
-    <div onClick={()=>props.clicked()} className={[classes.button,props.position].join(' ')}  role="button" aria-label={props.label}>
+    <div onClick={()=>props.clicked()} className={[classes.button,props.position,'button'].join(' ')}  role="button" aria-label={props.label}>
         {props.children}
     </div>
   )

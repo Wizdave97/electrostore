@@ -11,6 +11,9 @@ const initialState={
   fetchJustInStart:false,
   fetchJustInSuccess:false,
   fetchJustInFail:false,
+  fetchProductsFail:false,
+  fetchProductsSuccess:false,
+  fetchProductsStart:false
 }
 const reduceObjectToArray = data=>{
   const result=[];
@@ -33,6 +36,12 @@ const reducer = (state=initialState, action)=>{
       return updateObject(state, { fetchJustInStart:false, just_in:reduceObjectToArray(action.data),fetchJustInSuccess:true});
     case actionTypes.FETCH_JUST_IN_FAIL:
       return updateObject(state, {fetchJustInFail:true,fetchJustInStart:false,fetchJustInSuccess:false});
+    case actionTypes.FETCH_PRODUCTS_START:
+      return updateObject(state,{fetchProductsStart:true,fetchProductsFail:false,fetchProductsSuccess:false});
+    case actionTypes.FETCH_PRODUCTS_SUCCESS:
+      return updateObject(state, { fetchProductsStart:false, products:reduceObjectToArray(action.data),fetchProductsSuccess:true,fetchProductsFail:false});
+    case actionTypes.FETCH_PRODUCTS_FAIL:
+      return updateObject(state, {fetchProductsFail:true,fetchProductsStart:false,fetchProductsSuccess:false});
     default:
       return state
 

@@ -26,11 +26,11 @@ const navbar = props =>{
             />
           </div>
             <div className={classes.menuItems}>
-              <NavItem>Home</NavItem>
-              <NavItem>Products</NavItem>
-              <NavItem show={classes.wishlist}>My WishList</NavItem>
-              <NavItem show={classes.account}>My Account</NavItem>
-              <NavItem><ShoppingCart aria-label='cart'/></NavItem>
+              <NavItem to={'/'}>Home</NavItem>
+              <NavItem to={'/products'}>Products</NavItem>
+              <NavItem to={'/'} show={classes.wishlist}>My WishList</NavItem>
+              <NavItem to={'/'} show={classes.account}>My Account</NavItem>
+              <NavItem to={'/'}><ShoppingCart aria-label='cart'/></NavItem>
             </div>
             <Menu onClick={()=>props.toggleSideDrawer()} aria-haspopup="true" role='button' tabIndex='0' className={classes.menuIcon}/>
         </Toolbar>

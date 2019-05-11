@@ -7,7 +7,7 @@ const styles = theme =>({
     boxSizing:'border-box',
     margin:'5px 0',
     cursor:'pointer',
-    '&:hover .Item-media-277 .addToButton-button-282':{
+    '&:hover .media .button':{
       transform:'translate(0%,0%) !important',
     }
   },

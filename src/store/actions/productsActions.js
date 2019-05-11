@@ -6,6 +6,23 @@ const fetchSync= (data,type)=>({
   data:data
 })
 
+export const fetchProductsAsync =() =>{
+  return dispatch=>{
+    dispatch(fetchSync(null, actionTypes.FETCH_PRODUCTS_START));
+    fetch('https://electrostore-bb2a3.firebaseio.com/smartphones.json').then(response=>{
+      if(response.status!==200){
+        dispatch(fetchSync(null, actionTypes.FETCH_PRODUCTS_FAIL))
+        return null
+      }
+      return response.json();
+    }).then(data=>{
+      dispatch(fetchSync(data,actionTypes.FETCH_PRODUCTS_SUCCESS))
+    }).catch(err=>{
+      dispatch(fetchSync(null, actionTypes.FETCH_PRODUCTS_FAIL))
+    })
+  }
+}
+
 export const fetchEditorsChoiceAsync= ()=>{
   return dispatch =>{
     dispatch(fetchSync(null, actionTypes.FETCH_EDITORS_CHOICE))

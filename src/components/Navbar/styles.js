@@ -39,7 +39,10 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
         padding:0,
         marginTop:'auto',
         marginBottom:'auto',
-        height:'48px'
+        height:'48px',
+        '& div a':{
+          textDecoration:'none'
+        }
     },
     inputRoot: {
         color: 'inherit',

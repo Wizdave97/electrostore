@@ -10,7 +10,7 @@ const Item = props => {
 
   return (
     <Paper square={true} className={classes.card} >
-      <div className={classes.media}>
+      <div className={[classes.media,'media'].join(' ')}>
           <img src={props.data.img} alt={props.data.title}/>
           <AddToButton label={'Add to wishlist'} position={classes.wishlist} clicked={''}><Shop/></AddToButton>
           <AddToButton label={'Add to cart'} position={classes.cart}clicked={''}><AddShoppingCart/></AddToButton>
