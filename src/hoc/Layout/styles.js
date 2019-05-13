@@ -1,6 +1,6 @@
  const styles = theme =>({
     root:{
-        height:'100%',
+        minHeight:'100%',
         width:'100%',
         display:'flex',
         flexWrap:'wrap',
@@ -17,7 +17,7 @@
           }
     },
     main:{
-        height:'calc(100% - 64px)',
+        minHeight:'calc(100% - 64px)',
         width:'100%',
         display:'flex',
         flexWrap:'wrap',

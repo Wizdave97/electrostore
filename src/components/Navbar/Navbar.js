@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, InputBase } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, InputBase, Badge } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import NavItem from '../NavItem/NavItem';
 import { Menu, Search, ShoppingCart } from '@material-ui/icons';
@@ -30,7 +30,7 @@ const navbar = props =>{
               <NavItem to={'/products'}>Products</NavItem>
               <NavItem to={'/'} show={classes.wishlist}>My WishList</NavItem>
               <NavItem to={'/'} show={classes.account}>My Account</NavItem>
-              <NavItem to={'/'}><ShoppingCart aria-label='cart'/></NavItem>
+              <NavItem to={'/'}><Badge style={{margin:'4px'}} badgeContent={props.quantity} color="secondary"><ShoppingCart aria-label='cart'/></Badge></NavItem>
             </div>
             <Menu onClick={()=>props.toggleSideDrawer()} aria-haspopup="true" role='button' tabIndex='0' className={classes.menuIcon}/>
         </Toolbar>

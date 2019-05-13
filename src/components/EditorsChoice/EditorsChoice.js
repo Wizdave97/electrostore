@@ -10,7 +10,7 @@ const editorsChoice = props =>{
       {props.editors_choice.map((data,index) =>{
         return (
           <div key={index} className={classes.item}>
-              <Item data={data}/>
+              <Item data={data} add={props.add} remove={props.remove}/>
           </div>
         )
       })}

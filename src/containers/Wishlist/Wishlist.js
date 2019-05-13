@@ -6,7 +6,6 @@ import { Grid, Typography, Divider } from '@material-ui/core';
 import Item from '../../components/Item/Item';
 import Spinner from '../../components/Spinner/Spinner';
 import * as actions from '../../store/actions/productsActions';
-import * as cartActions from '../../store/actions/cartActions';
 
 class Products extends Component {
 
@@ -21,7 +20,7 @@ class Products extends Component {
       products=(this.props.products.map((data,index)=>{
         return (
           <div key={index} className={classes.item}>
-              <Item data={data} add={this.props.addItemToCartHandler}  remove={this.props.removeItemFromCartHandler}/>
+              <Item data={data}/>
           </div>
         )
       }))
@@ -59,9 +58,7 @@ const mapStateToProps= state =>({
 })
 
 const mapDispatchToProps = dispatch =>({
-  onFetchProducts: ()=>dispatch(actions.fetchProductsAsync()),
-  addItemToCartHandler: (obj)=> dispatch(cartActions.addToCart(obj)),
-  removeItemFromCartHandler: (obj) =>dispatch(cartActions.removeFromCart(obj))
+  onFetchProducts: ()=>dispatch(actions.fetchProductsAsync())
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Products));

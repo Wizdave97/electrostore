@@ -1,5 +1,6 @@
 import React , { Component, Fragment } from 'react';
 import { Grid } from '@material-ui/core';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Navbar from '../../components/Navbar/Navbar';
 import styles from './styles';
@@ -19,10 +20,10 @@ class Layout extends Component {
         const { classes } = this.props
         return(
             <Fragment>
-                
+
                 <div className={[classes.root,this.state.showSideDrawer?classes.show:''].join(' ')} >
                 {this.state.showSideDrawer?<BackDrop showSideDrawer={this.state.showSideDrawer} toggleSideDrawer={this.toggleSideDrawerHandler}/>:''}
-                <Navbar toggleSideDrawer={this.toggleSideDrawerHandler}/>
+                <Navbar quantity={this.props.quantity} sumTotal={this.props.sumTotal} toggleSideDrawer={this.toggleSideDrawerHandler}/>
                 <main className={classes.main} style={{padding:8}}>
                     <Grid
                         container
@@ -32,10 +33,13 @@ class Layout extends Component {
                         </Grid>
                 </main>
                 </div>
-                <SideDrawer show={this.state.showSideDrawer}/>
+                <SideDrawer quantity={this.props.quantity} sumTotal={this.props.sumTotal} show={this.state.showSideDrawer}/>
             </Fragment>
         )
     }
 }
-
-export default withStyles(styles)(Layout);
+const mapStateToProps = state =>({
+  quantity:state.cart.quantity,
+  sumTotal:state.cart.sumTotal
+})
+export default connect(mapStateToProps)(withStyles(styles)(Layout));

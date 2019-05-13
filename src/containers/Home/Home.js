@@ -8,6 +8,7 @@ import Benefits from '../../components/Benefits/Benefits';
 import Brands from '../../components/Brands/Brands';
 import EditorsChoice from '../../components/EditorsChoice/EditorsChoice';
 import * as actions from '../../store/actions/productsActions';
+import * as cartActions from '../../store/actions/cartActions';
 import Spinner from '../../components/Spinner/Spinner';
 
 class Home extends Component{
@@ -23,13 +24,13 @@ class Home extends Component{
     let justIn=<Spinner/>
     let failureMessage=<Typography variant='body1' align='center'> An error occurred please check your network</Typography>
     if(this.props.editors_choice && this.props.fetchEditorsChoiceSuccess) {
-      editorsChoice=<EditorsChoice editors_choice={this.props.editors_choice}/>
+      editorsChoice=<EditorsChoice editors_choice={this.props.editors_choice} add={this.props.addItemToCartHandler} remove={this.props.removeItemFromCartHandler}/>
     }
     else if(!this.props.editors_choice && this.props.fetchEditorsChoiceFail) {
       editorsChoice=failureMessage
     }
     if(this.props.just_in && this.props.fetchJustInSuccess) {
-      justIn=<EditorsChoice editors_choice={this.props.just_in}/>
+      justIn=<EditorsChoice editors_choice={this.props.just_in} add={this.props.addItemToCartHandler} remove={this.props.removeItemFromCartHandler}/>
     }
     else if(!this.props.just_in && this.props.fetchJustInFail) {
       justIn=failureMessage
@@ -71,7 +72,7 @@ class Home extends Component{
           <div className={classes.sectionTitle}>
             <Divider className={classes.divider}/>
             <Typography align="center" variant="h4" color="default" gutterBottom>Brands</Typography>
-            <Divider className={classes.divider}/>  
+            <Divider className={classes.divider}/>
           </div>
           <Brands/>
         </Grid>
@@ -91,6 +92,8 @@ const mapStateToProps = state =>({
 
 const mapDispatchToProps = dispatch => ({
   onFetchEditorsChoice:()=> dispatch(actions.fetchEditorsChoiceAsync()),
-  onFetchJustIn:()=> dispatch(actions.fetchJustInAsync())
+  onFetchJustIn:()=> dispatch(actions.fetchJustInAsync()),
+  addItemToCartHandler: (obj)=> dispatch(cartActions.addToCart(obj)),
+  removeItemFromCartHandler: (obj) =>dispatch(cartActions.removeFromCart(obj))
 })
 export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Home));

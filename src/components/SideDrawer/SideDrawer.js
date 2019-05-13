@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Divider, List, ListItem, ListItemText } from '@material-ui/core';
+import { Paper, Divider, List, ListItem, ListItemText, Badge } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { Home, Shop, AccountCircle, Category, Search, ShoppingCart } from '@material-ui/icons'
 import styles from './styles';
@@ -16,7 +16,7 @@ const sideDrawer = props => {
             <Divider light/>
             <ListItem button><AccountCircle/><ListItemText primary="My Account"/></ListItem>
             <Divider light/>
-            <ListItem button><ShoppingCart/><ListItemText primary="Cart"/></ListItem>
+            <ListItem button><Badge style={{margin:'4px'}} color='secondary' badgeContent={props.quantity}><ShoppingCart/></Badge><ListItemText primary="Cart"/></ListItem>
             <Divider light/>
             <ListItem button><Shop/><ListItemText primary="My Wishlist"/></ListItem>
             <Divider light/>
