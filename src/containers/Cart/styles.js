@@ -25,6 +25,9 @@ const styles = theme=> ({
     margin:'0 10px',
     boxSizing:'border-box',
     flex:1
+  },
+  checkout:{
+    margin:'auto auto'
   }
 })
 

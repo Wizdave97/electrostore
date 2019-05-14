@@ -7,11 +7,14 @@ import Item from '../../components/Item/Item';
 import Spinner from '../../components/Spinner/Spinner';
 import * as actions from '../../store/actions/productsActions';
 import * as cartActions from '../../store/actions/cartActions';
+import * as wishlistActions from '../../store/actions/wishlistActions';
 
 class Products extends Component {
 
   componentDidMount(){
-    this.props.onFetchProducts();
+    if(!this.props.products || this.props.fetchProductsFail){
+      this.props.onFetchProducts();
+    }
   }
   render() {
     const  { classes } = this.props;
@@ -21,7 +24,15 @@ class Products extends Component {
       products=(this.props.products.map((data,index)=>{
         return (
           <div key={index} className={classes.item}>
-              <Item data={data} add={this.props.addItemToCartHandler}  remove={this.props.removeItemFromCartHandler}/>
+              <Item
+                wishlistIds={this.props.wishlist_ids}
+                cartIds={this.props.item_ids}
+                data={data}
+                add={this.props.addItemToCartHandler}
+                remove={this.props.removeItemFromCartHandler}
+                addToWishlist={this.props.addItemtoWishlistHandler}
+                removeFromWishlist={this.props.removeItemFromWishlistHandler}
+                />
           </div>
         )
       }))
@@ -55,13 +66,17 @@ class Products extends Component {
 const mapStateToProps= state =>({
   products:state.products.products,
   fetchProductsSuccess:state.products.fetchProductsSuccess,
-  fetchProductsFail:state.products.fetchProductsFail
+  fetchProductsFail:state.products.fetchProductsFail,
+  item_ids:state.cart.item_ids,
+  wishlist_ids:state.wishlist.item_ids
 })
 
 const mapDispatchToProps = dispatch =>({
   onFetchProducts: ()=>dispatch(actions.fetchProductsAsync()),
   addItemToCartHandler: (obj)=> dispatch(cartActions.addToCart(obj)),
-  removeItemFromCartHandler: (obj) =>dispatch(cartActions.removeFromCart(obj))
+  removeItemFromCartHandler: (obj) =>dispatch(cartActions.removeFromCart(obj)),
+  addItemtoWishlistHandler:(obj) =>dispatch(wishlistActions.addToWishlist(obj)),
+  removeItemFromWishlistHandler: (obj) => dispatch(wishlistActions.removeFromWishlist(obj))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Products));

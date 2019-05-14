@@ -4,38 +4,38 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import  { withStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Divider, Button} from '@material-ui/core';
-import CartItem from '../../components/CartItem/CartItem';
+import WishlistItem from '../../components/WishlistItem/WishlistItem';
 import Spinner from '../../components/Spinner/Spinner';
-import * as actions from '../../store/actions/productsActions';
+import * as actions from '../../store/actions/wishlistActions';
 
-class Cart extends Component {
+class Wishlist extends Component {
 
   componentDidMount(){
-    this.props.onFetchCart();
+    //this.props.onFetchWishlist();
   }
   render() {
     const  { classes } = this.props;
-    let cart=<Spinner/>;
+    let wishlist=<Spinner/>;
     let failureMessage=<Typography variant='body1' align='center' style={{width:'100%'}}> An error occurred please check your network</Typography>;
-    if(this.props.cart.length===0 && this.props.fetchCartSuccess){
-      cart=(
+    if(this.props.wishlist.length===0 && this.props.fetchWishlistSuccess){
+      wishlist=(
         <React.Fragment>
-          <Typography variant='body1' align='center' style={{width:'100%'}}> Your cart is empty continue shopping to add items to your cart</Typography>
+          <Typography variant='body1' align='center' style={{width:'100%'}}> Your wishlist is empty continue shopping to add items to your wishlist</Typography>
           <Button variant='contained' size='medium' color='secondary' component={Link} to='/products'>Continue Shopping</Button>
         </React.Fragment>
       )
     }
-    if(this.props.cart.length!==0 || this.props.fetchCartSuccess) {
-      cart=(this.props.cart.map((data,index)=>{
+    if(this.props.wishlist.length!==0 || this.props.fetchWishlistSuccess) {
+      wishlist=(this.props.wishlist.map((data,index)=>{
         return (
           <div key={index} className={classes.item}>
-              <CartItem data={data}/>
+              <WishlistItem data={data} delete={this.props.removeFromWishlist}/>
           </div>
         )
       }))
     }
-    if(this.props.cart.length===0 && this.props.fetchCartFail) {
-      cart=failureMessage;
+    if(this.props.wishlist.length===0 && this.props.fetchWishlistFail) {
+      wishlist=failureMessage;
       }
     return (
 
@@ -45,15 +45,14 @@ class Cart extends Component {
         sm={12}
         md={12}
       >
-        <div className={classes.cart}>
+        <div className={classes.wishlist}>
           <div className={classes.sectionTitle}>
             <Divider className={classes.divider}/>
-            <Typography align="center" variant="h4" color="secondary" gutterBottom>Your Cart</Typography>
+            <Typography align="center" variant="h4" color="secondary" gutterBottom>Your Wishlist</Typography>
             <Divider className={classes.divider}/>
           </div>
-          <div className={classes.allCartItems}>
-            {cart}
-            { this.props.cart?<Button size='medium' variant='contained' color='secondary' component={Link} to='/checkout'>Proceed to Checkout</Button>:null }
+          <div className={classes.allWishlistItems}>
+            {wishlist}
           </div>
         </div>
       </Grid>
@@ -62,13 +61,13 @@ class Cart extends Component {
 }
 
 const mapStateToProps= state =>({
-  cart:state.cart.cart,
-  fetchCartSuccess:state.products.fetchCartSuccess,
-  fetchCartFail:state.products.fetchCartFail
+  wishlist:state.wishlist.wishlist,
+  fetchWishlistSuccess:state.wishlist.fetchWishlistSuccess,
+  fetchWishlistFail:state.wishlist.fetchWishlistFail
 })
 
 const mapDispatchToProps = dispatch =>({
-  onFetchCart: ()=>dispatch(actions.fetchCartAsync())
+  removeFromWishlist:(obj)=> dispatch(actions.removeFromWishlist(obj))
 })
 
-export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Cart));
+export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Wishlist));

@@ -10,7 +10,15 @@ const editorsChoice = props =>{
       {props.editors_choice.map((data,index) =>{
         return (
           <div key={index} className={classes.item}>
-              <Item data={data} add={props.add} remove={props.remove}/>
+              <Item
+                data={data}
+                wishlistIds={props.wishlistIds}
+                cartIds={props.cartIds}
+                add={props.add}
+                remove={props.remove}
+                addToWishlist={props.addToWishlist}
+                removeFromWishlist={props.removeFromWishlist}
+                />
           </div>
         )
       })}

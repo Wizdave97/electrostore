@@ -1,10 +1,10 @@
 const styles = theme=> ({
-  cart:{
+  wishlist:{
     display:'flex',
     width:'100%',
     flexWrap:'wrap'
   },
-  allCartItems:{
+  allWishlistItems:{
     width:'100%',
     display:'flex',
     flexWrap:'wrap',
@@ -25,6 +25,9 @@ const styles = theme=> ({
     margin:'0 10px',
     boxSizing:'border-box',
     flex:1
+  },
+  checkout:{
+    margin:'auto auto'
   }
 })
 

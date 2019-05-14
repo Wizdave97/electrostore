@@ -25,13 +25,13 @@ const reduceObjectToArray = data=>{
 const reducer = (state=initialState, action)=>{
   switch (action.type) {
     case actionTypes.FETCH_EDITORS_CHOICE:
-      return updateObject(state,{fetchEditorsChoiceStart:true});
+      return updateObject(state,{fetchEditorsChoiceStart:true,fetchEditorsChoiceFail:false});
     case actionTypes.FETCH_EDITORS_CHOICE_SUCCESS:
       return updateObject(state, { fetchEditorsChoiceStart:false, editors_choice:reduceObjectToArray(action.data),fetchEditorsChoiceSuccess:true});
     case actionTypes.FETCH_EDITORS_CHOICE_FAIL:
       return updateObject(state, {fetchEditorsChoiceFail:true,fetchEditorsChoiceStart:false,fetchEditorsChoiceSuccess:false});
     case actionTypes.FETCH_JUST_IN:
-      return updateObject(state,{fetchJustStart:true});
+      return updateObject(state,{fetchJustStart:true,fetchJustInFail:false});
     case actionTypes.FETCH_JUST_IN_SUCCESS:
       return updateObject(state, { fetchJustInStart:false, just_in:reduceObjectToArray(action.data),fetchJustInSuccess:true});
     case actionTypes.FETCH_JUST_IN_FAIL:

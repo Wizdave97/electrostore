@@ -9,13 +9,18 @@ import Brands from '../../components/Brands/Brands';
 import EditorsChoice from '../../components/EditorsChoice/EditorsChoice';
 import * as actions from '../../store/actions/productsActions';
 import * as cartActions from '../../store/actions/cartActions';
+import * as wishlistActions from '../../store/actions/wishlistActions';
 import Spinner from '../../components/Spinner/Spinner';
 
 class Home extends Component{
 
   componentDidMount(){
-    this.props.onFetchEditorsChoice();
-    this.props.onFetchJustIn();
+    if(!this.props.just_in || this.props.fetchJustInFail){
+      this.props.onFetchJustIn();
+    }
+    if(!this.props.editors_choice || this.props.fetchEditorsChoiceFail){
+      this.props.onFetchEditorsChoice();
+    }
   }
 
   render(){
@@ -24,13 +29,31 @@ class Home extends Component{
     let justIn=<Spinner/>
     let failureMessage=<Typography variant='body1' align='center'> An error occurred please check your network</Typography>
     if(this.props.editors_choice && this.props.fetchEditorsChoiceSuccess) {
-      editorsChoice=<EditorsChoice editors_choice={this.props.editors_choice} add={this.props.addItemToCartHandler} remove={this.props.removeItemFromCartHandler}/>
+      editorsChoice=(<EditorsChoice
+                          wishlistIds={this.props.wishlist_ids}
+                          cartIds={this.props.item_ids}
+                          editors_choice={this.props.editors_choice}
+                          add={this.props.addItemToCartHandler}
+                          remove={this.props.removeItemFromCartHandler}
+                          addToWishlist={this.props.addItemtoWishlistHandler}
+                          removeFromWishlist={this.props.removeItemFromWishlistHandler}
+                          />
+
+                      )
     }
     else if(!this.props.editors_choice && this.props.fetchEditorsChoiceFail) {
       editorsChoice=failureMessage
     }
     if(this.props.just_in && this.props.fetchJustInSuccess) {
-      justIn=<EditorsChoice editors_choice={this.props.just_in} add={this.props.addItemToCartHandler} remove={this.props.removeItemFromCartHandler}/>
+      justIn=(<EditorsChoice
+                  wishlistIds={this.props.wishlist_ids}
+                  cartIds={this.props.item_ids}
+                  editors_choice={this.props.just_in}
+                  add={this.props.addItemToCartHandler}
+                  remove={this.props.removeItemFromCartHandler}
+                  addToWishlist={this.props.addItemtoWishlistHandler}
+                  removeFromWishlist={this.props.removeItemFromWishlistHandler}
+                  />)
     }
     else if(!this.props.just_in && this.props.fetchJustInFail) {
       justIn=failureMessage
@@ -84,6 +107,8 @@ class Home extends Component{
 const mapStateToProps = state =>({
   editors_choice:state.products.editors_choice,
   just_in:state.products.just_in,
+  item_ids:state.cart.item_ids,
+  wishlist_ids:state.wishlist.item_ids,
   fetchEditorsChoiceSuccess:state.products.fetchEditorsChoiceSuccess,
   fetchEditorsChoiceFail:state.products.fetchEditorsChoiceFail,
   fetchJustInSuccess:state.products.fetchJustInSuccess,
@@ -94,6 +119,8 @@ const mapDispatchToProps = dispatch => ({
   onFetchEditorsChoice:()=> dispatch(actions.fetchEditorsChoiceAsync()),
   onFetchJustIn:()=> dispatch(actions.fetchJustInAsync()),
   addItemToCartHandler: (obj)=> dispatch(cartActions.addToCart(obj)),
-  removeItemFromCartHandler: (obj) =>dispatch(cartActions.removeFromCart(obj))
+  removeItemFromCartHandler: (obj) =>dispatch(cartActions.removeFromCart(obj)),
+  addItemtoWishlistHandler:(obj) =>dispatch(wishlistActions.addToWishlist(obj)),
+  removeItemFromWishlistHandler: (obj) => dispatch(wishlistActions.removeFromWishlist(obj))
 })
 export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Home));

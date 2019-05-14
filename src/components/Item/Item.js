@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Paper, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
@@ -14,12 +14,41 @@ const Item = props => {
       cartified:!state.cartified
     }))
   }
+  const setWishifiedHandler=()=>{
+    setState(state=>({
+      wishified:!state.wishified
+    }))
+  }
+  useEffect(()=>{
+    if(props.cartIds.length!==0){
+      let index=props.cartIds.indexOf(props.data.id);
+      let check=index>=0?setCartifiedHandler():null
+    }
+    if(props.wishlistIds.length!==0){
+      let index=props.wishlistIds.indexOf(props.data.id);
+      let check=index>=0?setWishifiedHandler():null
+    }
+  },[])
+
   return (
     <Paper square={true} className={classes.card} >
       <div className={[classes.media,'media'].join(' ')}>
           <img src={props.data.img} alt={props.data.title}/>
-          <AddToButton label={'Add to wishlist'} position={classes.wishlist} data={props.data}><Shop/></AddToButton>
-          <AddToButton label={'Add to cart'} position={classes.cart} cartified={setCartifiedHandler} clicked={state.cartified?props.remove:props.add} data={props.data}>{state.cartified?<RemoveShoppingCart color='error'/>:<AddShoppingCart/>}</AddToButton>
+          <AddToButton label={'Add to wishlist'}
+            wishified={setWishifiedHandler}
+            clicked={state.wishified?props.removeFromWishlist:props.addToWishlist}
+            position={classes.wishlist}
+            data={props.data}>
+            <Shop color={state.wishified?'error':'inherit'}/>
+        </AddToButton>
+          <AddToButton
+            label={'Add to cart'}
+            position={classes.cart}
+            cartified={setCartifiedHandler}
+            clicked={state.cartified?props.remove:props.add}
+            data={props.data}>
+            {state.cartified?<RemoveShoppingCart color='error'/>:<AddShoppingCart/>}
+          </AddToButton>
       </div>
       <div className={classes.cardDetails}>
         <Typography className={classes.text} align='left' variant='body1'>{props.data.title}</Typography>

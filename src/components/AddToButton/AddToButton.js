@@ -18,8 +18,16 @@ const styles= theme=>({
 })
 const addToButton = props =>{
   const {classes}= props
+  const clickHandler= () =>{
+    props.clicked(props.data);
+    if(typeof props.cartified==='function') {
+      props.cartified()}
+    else{
+      props.wishified()
+    }
+  }
   return(
-    <div onClick={()=>{props.clicked(props.data); props.cartified()}} className={[classes.button,props.position,'button'].join(' ')}  role="button" aria-label={props.label}>
+    <div onClick={()=>clickHandler()} className={[classes.button,props.position,'button'].join(' ')}  role="button" aria-label={props.label}>
         {props.children}
     </div>
   )

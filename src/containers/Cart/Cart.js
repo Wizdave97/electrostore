@@ -6,12 +6,12 @@ import  { withStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Divider, Button} from '@material-ui/core';
 import CartItem from '../../components/CartItem/CartItem';
 import Spinner from '../../components/Spinner/Spinner';
-import * as actions from '../../store/actions/productsActions';
+import * as actions from '../../store/actions/cartActions';
 
 class Cart extends Component {
 
   componentDidMount(){
-    this.props.onFetchCart();
+    //this.props.onFetchCart();
   }
   render() {
     const  { classes } = this.props;
@@ -29,7 +29,7 @@ class Cart extends Component {
       cart=(this.props.cart.map((data,index)=>{
         return (
           <div key={index} className={classes.item}>
-              <CartItem data={data}/>
+              <CartItem data={data} delete={this.props.removeFromCart}/>
           </div>
         )
       }))
@@ -53,7 +53,8 @@ class Cart extends Component {
           </div>
           <div className={classes.allCartItems}>
             {cart}
-            { this.props.cart?<Button size='medium' variant='contained' color='secondary' component={Link} to='/checkout'>Proceed to Checkout</Button>:null }
+            { this.props.cart.length!==0?<Typography className={classes.checkout} align='center' variant='body1' color='secondary'>Sum Total: ${this.props.sumTotal}</Typography>:null }
+            { this.props.cart.length!==0?<Button className={classes.checkout} size='medium' variant='contained' color='secondary' component={Link} to='/checkout'>Proceed to Checkout</Button>:null }
           </div>
         </div>
       </Grid>
@@ -63,12 +64,13 @@ class Cart extends Component {
 
 const mapStateToProps= state =>({
   cart:state.cart.cart,
-  fetchCartSuccess:state.products.fetchCartSuccess,
-  fetchCartFail:state.products.fetchCartFail
+  fetchCartSuccess:state.cart.fetchCartSuccess,
+  fetchCartFail:state.cart.fetchCartFail,
+  sumTotal:state.cart.sumTotal
 })
 
 const mapDispatchToProps = dispatch =>({
-  onFetchCart: ()=>dispatch(actions.fetchCartAsync())
+  removeFromCart:(obj)=> dispatch(actions.removeFromCart(obj))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Cart));

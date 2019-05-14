@@ -16,9 +16,13 @@ const sideDrawer = props => {
             <Divider light/>
             <ListItem button><AccountCircle/><ListItemText primary="My Account"/></ListItem>
             <Divider light/>
-            <ListItem button><Badge style={{margin:'4px'}} color='secondary' badgeContent={props.quantity}><ShoppingCart/></Badge><ListItemText primary="Cart"/></ListItem>
+            <ListItem button>
+              <Badge style={{margin:'4px'}} color='secondary' badgeContent={props.quantity}><ShoppingCart/></Badge>
+              <ListItemText primary="Cart"/></ListItem>
             <Divider light/>
-            <ListItem button><Shop/><ListItemText primary="My Wishlist"/></ListItem>
+            <ListItem button>
+              <Badge style={{margin:'4px'}} color='secondary' badgeContent={props.wishes}><Shop/></Badge>
+              <ListItemText primary="My Wishlist"/></ListItem>
             <Divider light/>
             <ListItem button><Category/><ListItemText primary="Products"/></ListItem>
           </List>

@@ -28,9 +28,9 @@ const navbar = props =>{
             <div className={classes.menuItems}>
               <NavItem to={'/'}>Home</NavItem>
               <NavItem to={'/products'}>Products</NavItem>
-              <NavItem to={'/'} show={classes.wishlist}><Badge style={{margin:'4px'}} badgeContent={props.wishes} color="secondary">My WishList</Badge></NavItem>
+              <NavItem to={'/wishlist'} show={classes.wishlist}><Badge style={{margin:'4px'}} badgeContent={props.wishes} color="secondary">My WishList</Badge></NavItem>
               <NavItem to={'/'} show={classes.account}>My Account</NavItem>
-              <NavItem to={'/'}><Badge style={{margin:'4px'}} badgeContent={props.quantity} color="secondary"><ShoppingCart aria-label='cart'/></Badge></NavItem>
+              <NavItem to={'/cart'}><Badge style={{margin:'4px'}} badgeContent={props.quantity} color="secondary"><ShoppingCart aria-label='cart'/></Badge></NavItem>
             </div>
             <Menu onClick={()=>props.toggleSideDrawer()} aria-haspopup="true" role='button' tabIndex='0' className={classes.menuIcon}/>
         </Toolbar>

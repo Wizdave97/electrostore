@@ -5,21 +5,27 @@ const initialState={
   item_ids:[],
   cart:[],
   sumTotal:0.00,
-  quantity:0
+  quantity:0,
+  fetchCartFail:false,
+  fetchCartSuccess:false
 }
 
 const addToCart = (state,obj) => {
-  let newState={...state,cart:[...state.cart],quantity:state.quantity+1,sumTotal:Number(state.sumTotal)+ Number(obj.price).toFixed(2)};
+  let newState={...state,cart:[...state.cart],quantity:state.quantity+1};
+  let sumTotal=state.sumTotal + Number(obj.price)
   newState.cart.push(obj);
   newState.item_ids.push(obj.id);
+  newState.sumTotal=sumTotal;
   return updateObject(state,newState)
 }
 
 const removeFromCart =(state,obj) =>{
-  let newState={...state,item_ids:[...state.item_ids],cart:[...state.cart],quantity:state.quantity-1,sumTotal:Number(state.sumTotal)-Number(obj.price).toFixed(2)};
+  let newState={...state,item_ids:[...state.item_ids],cart:[...state.cart],quantity:state.quantity-1};
   let indexOfObjInCart=newState.item_ids.indexOf(obj.id);
+  let sumTotal=state.sumTotal - Number(obj.price)
   newState.item_ids.splice(indexOfObjInCart,1);
   newState.cart.splice(indexOfObjInCart,1);
+  newState.sumTotal=sumTotal;
   return updateObject(state, newState);
 }
 const reducer = ( state=initialState,action)=>{
