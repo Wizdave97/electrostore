@@ -28,7 +28,7 @@ const navbar = props =>{
             <div className={classes.menuItems}>
               <NavItem to={'/'}>Home</NavItem>
               <NavItem to={'/products'}>Products</NavItem>
-              <NavItem to={'/'} show={classes.wishlist}>My WishList</NavItem>
+              <NavItem to={'/'} show={classes.wishlist}><Badge style={{margin:'4px'}} badgeContent={props.wishes} color="secondary">My WishList</Badge></NavItem>
               <NavItem to={'/'} show={classes.account}>My Account</NavItem>
               <NavItem to={'/'}><Badge style={{margin:'4px'}} badgeContent={props.quantity} color="secondary"><ShoppingCart aria-label='cart'/></Badge></NavItem>
             </div>

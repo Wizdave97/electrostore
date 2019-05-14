@@ -1,32 +1,41 @@
 import React, { Component } from 'react';
 import styles from './styles';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import  { withStyles } from '@material-ui/core/styles';
-import { Grid, Typography, Divider } from '@material-ui/core';
-import Item from '../../components/Item/Item';
+import { Grid, Typography, Divider, Button} from '@material-ui/core';
+import CartItem from '../../components/CartItem/CartItem';
 import Spinner from '../../components/Spinner/Spinner';
 import * as actions from '../../store/actions/productsActions';
 
-class Products extends Component {
+class Cart extends Component {
 
   componentDidMount(){
-    this.props.onFetchProducts();
+    this.props.onFetchCart();
   }
   render() {
     const  { classes } = this.props;
-    let products=<Spinner/>;
+    let cart=<Spinner/>;
     let failureMessage=<Typography variant='body1' align='center' style={{width:'100%'}}> An error occurred please check your network</Typography>;
-    if(this.props.products && this.props.fetchProductsSuccess) {
-      products=(this.props.products.map((data,index)=>{
+    if(this.props.cart.length===0 && this.props.fetchCartSuccess){
+      cart=(
+        <React.Fragment>
+          <Typography variant='body1' align='center' style={{width:'100%'}}> Your cart is empty continue shopping to add items to your cart</Typography>
+          <Button variant='contained' size='medium' color='secondary' component={Link} to='/products'>Continue Shopping</Button>
+        </React.Fragment>
+      )
+    }
+    if(this.props.cart.length!==0 || this.props.fetchCartSuccess) {
+      cart=(this.props.cart.map((data,index)=>{
         return (
           <div key={index} className={classes.item}>
-              <Item data={data}/>
+              <CartItem data={data}/>
           </div>
         )
       }))
     }
-    if(!this.props.products && this.props.fetchProductsFail) {
-      products=failureMessage;
+    if(this.props.cart.length===0 && this.props.fetchCartFail) {
+      cart=failureMessage;
       }
     return (
 
@@ -36,14 +45,15 @@ class Products extends Component {
         sm={12}
         md={12}
       >
-        <div className={classes.products}>
+        <div className={classes.cart}>
           <div className={classes.sectionTitle}>
             <Divider className={classes.divider}/>
-            <Typography align="center" variant="h4" color="secondary" gutterBottom>Our Products</Typography>
+            <Typography align="center" variant="h4" color="secondary" gutterBottom>Your Cart</Typography>
             <Divider className={classes.divider}/>
           </div>
-          <div className={classes.allProducts}>
-            {products}
+          <div className={classes.allCartItems}>
+            {cart}
+            { this.props.cart?<Button size='medium' variant='contained' color='secondary' component={Link} to='/checkout'>Proceed to Checkout</Button>:null }
           </div>
         </div>
       </Grid>
@@ -52,13 +62,13 @@ class Products extends Component {
 }
 
 const mapStateToProps= state =>({
-  products:state.products.products,
-  fetchProductsSuccess:state.products.fetchProductsSuccess,
-  fetchProductsFail:state.products.fetchProductsFail
+  cart:state.cart.cart,
+  fetchCartSuccess:state.products.fetchCartSuccess,
+  fetchCartFail:state.products.fetchCartFail
 })
 
 const mapDispatchToProps = dispatch =>({
-  onFetchProducts: ()=>dispatch(actions.fetchProductsAsync())
+  onFetchCart: ()=>dispatch(actions.fetchCartAsync())
 })
 
-export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Products));
+export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Cart));

@@ -23,7 +23,7 @@ class Layout extends Component {
 
                 <div className={[classes.root,this.state.showSideDrawer?classes.show:''].join(' ')} >
                 {this.state.showSideDrawer?<BackDrop showSideDrawer={this.state.showSideDrawer} toggleSideDrawer={this.toggleSideDrawerHandler}/>:''}
-                <Navbar quantity={this.props.quantity} sumTotal={this.props.sumTotal} toggleSideDrawer={this.toggleSideDrawerHandler}/>
+                <Navbar wishes={this.props.wishes} quantity={this.props.quantity} sumTotal={this.props.sumTotal} toggleSideDrawer={this.toggleSideDrawerHandler}/>
                 <main className={classes.main} style={{padding:8}}>
                     <Grid
                         container
@@ -33,13 +33,14 @@ class Layout extends Component {
                         </Grid>
                 </main>
                 </div>
-                <SideDrawer quantity={this.props.quantity} sumTotal={this.props.sumTotal} show={this.state.showSideDrawer}/>
+                <SideDrawer wishes={this.props.wishes} quantity={this.props.quantity} sumTotal={this.props.sumTotal} show={this.state.showSideDrawer}/>
             </Fragment>
         )
     }
 }
 const mapStateToProps = state =>({
   quantity:state.cart.quantity,
-  sumTotal:state.cart.sumTotal
+  sumTotal:state.cart.sumTotal,
+  wishes:state.wishlist.quantity
 })
 export default connect(mapStateToProps)(withStyles(styles)(Layout));

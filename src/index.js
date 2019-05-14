@@ -9,12 +9,13 @@ import thunk from 'redux-thunk';
 import { red } from '@material-ui/core/colors';
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
-import { auth, cart, products } from './store/reducers';
+import { auth, cart, products, wishlist } from './store/reducers';
 
 const rootReducer=combineReducers({
   auth:auth,
   cart:cart,
-  products:products
+  products:products,
+  wishlist:wishlist
 })
 const composeEnhancers = process.env.NODE_ENV ==='development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose
 const store=createStore(rootReducer,composeEnhancers(applyMiddleware(thunk)));

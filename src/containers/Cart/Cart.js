@@ -19,13 +19,13 @@ class Cart extends Component {
     let failureMessage=<Typography variant='body1' align='center' style={{width:'100%'}}> An error occurred please check your network</Typography>;
     if(this.props.cart.length===0 && this.props.fetchCartSuccess){
       cart=(
-        <>
+        <React.Fragment>
           <Typography variant='body1' align='center' style={{width:'100%'}}> Your cart is empty continue shopping to add items to your cart</Typography>
           <Button variant='contained' size='medium' color='secondary' component={Link} to='/products'>Continue Shopping</Button>
-        </>
+        </React.Fragment>
       )
     }
-    if(this.props.cart.length!==0 && this.props.fetchCartSuccess) {
+    if(this.props.cart.length!==0 || this.props.fetchCartSuccess) {
       cart=(this.props.cart.map((data,index)=>{
         return (
           <div key={index} className={classes.item}>
