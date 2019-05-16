@@ -8,14 +8,20 @@ import Spinner from '../../components/Spinner/Spinner';
 import * as actions from '../../store/actions/productsActions';
 import * as cartActions from '../../store/actions/cartActions';
 import * as wishlistActions from '../../store/actions/wishlistActions';
+import Modal from '../../components/Modal/Modal';
+import { ModalContext } from '../../hoc/Layout/modalContext';
 
 class Products extends Component {
 
+  state={
+    itemname:null
+  }
   componentDidMount(){
     if(!this.props.products || this.props.fetchProductsFail){
       this.props.onFetchProducts();
     }
   }
+  static contextType= ModalContext
   render() {
     const  { classes } = this.props;
     let products=<Spinner/>;
@@ -24,15 +30,24 @@ class Products extends Component {
       products=(this.props.products.map((data,index)=>{
         return (
           <div key={index} className={classes.item}>
-              <Item
-                wishlistIds={this.props.wishlist_ids}
-                cartIds={this.props.item_ids}
-                data={data}
-                add={this.props.addItemToCartHandler}
-                remove={this.props.removeItemFromCartHandler}
-                addToWishlist={this.props.addItemtoWishlistHandler}
-                removeFromWishlist={this.props.removeItemFromWishlistHandler}
-                />
+            <ModalContext.Consumer>
+              {
+                ({setItemName,toggleModal})=>(
+                  <Item
+                    toggleModal={toggleModal}
+                    setItemName={setItemName}
+                    wishlistIds={this.props.wishlist_ids}
+                    cartIds={this.props.item_ids}
+                    data={data}
+                    add={this.props.addItemToCartHandler}
+                    remove={this.props.removeItemFromCartHandler}
+                    addToWishlist={this.props.addItemtoWishlistHandler}
+                    removeFromWishlist={this.props.removeItemFromWishlistHandler}
+                    />
+                )
+              }
+
+              </ModalContext.Consumer>
           </div>
         )
       }))
@@ -58,6 +73,13 @@ class Products extends Component {
             {products}
           </div>
         </div>
+        <ModalContext.Consumer>
+          {
+            ({itemName,toggleModal,showModal})=>(
+              <Modal show={showModal} itemname={itemName} handleClose={toggleModal}  />
+            )
+          }
+        </ModalContext.Consumer>
       </Grid>
     )
   }

@@ -6,10 +6,25 @@ import Navbar from '../../components/Navbar/Navbar';
 import styles from './styles';
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
 import BackDrop from '../../components/Backdrop/Backdrop';
+import  { ModalContext } from './modalContext';
 
 class Layout extends Component {
     state={
-        showSideDrawer:false
+        showSideDrawer:false,
+        showModal:false,
+        itemName:null,
+        toggleModal:this.toggleModalHandler,
+        setItemName:this.setItemName
+    }
+    toggleModalHandler= () =>{
+      this.setState(state=>({
+        showModal:!state.showModal
+      }))
+    }
+    setItemName = (name) =>{
+      this.setState({
+        itemName:name
+      })
     }
     toggleSideDrawerHandler = ()=>{
         this.setState(state=>({
@@ -18,6 +33,7 @@ class Layout extends Component {
     }
     render(){
         const { classes } = this.props
+
         return(
             <Fragment>
 
@@ -29,7 +45,9 @@ class Layout extends Component {
                         container
                         spacing={16}
                         justify='center'>
-                        {this.props.children}
+                        <ModalContext.Provider value={this.state}>
+                          {this.props.children}
+                        </ModalContext.Provider>
                         </Grid>
                 </main>
                 </div>

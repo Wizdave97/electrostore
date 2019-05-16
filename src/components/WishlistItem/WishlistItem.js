@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles';
-import { Paper, IconButton ,Typography,Button} from '@material-ui/core';
+import { Paper,Typography,Button} from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 

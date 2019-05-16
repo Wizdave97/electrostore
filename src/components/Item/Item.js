@@ -10,6 +10,10 @@ const Item = props => {
   const initialState={cartified:false,wishified:false}
   const [state, setState]=useState(initialState);
   const setCartifiedHandler=()=>{
+    if(!state.cartified)  {
+      props.setItemName(props.data.title)
+      props.toggleModal()
+    }
     setState(state=>({
       cartified:!state.cartified
     }))
@@ -22,11 +26,11 @@ const Item = props => {
   useEffect(()=>{
     if(props.cartIds.length!==0){
       let index=props.cartIds.indexOf(props.data.id);
-      let check=index>=0?setCartifiedHandler():null
+      if(index>=0) setCartifiedHandler()
     }
     if(props.wishlistIds.length!==0){
       let index=props.wishlistIds.indexOf(props.data.id);
-      let check=index>=0?setWishifiedHandler():null
+      if(index>=0) setWishifiedHandler()
     }
   },[])
 
