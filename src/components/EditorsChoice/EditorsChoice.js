@@ -11,6 +11,8 @@ const editorsChoice = props =>{
         return (
           <div key={index} className={classes.item}>
               <Item
+                setItemName={props.setItemName}
+                toggleModal={props.toggleModal}
                 data={data}
                 wishlistIds={props.wishlistIds}
                 cartIds={props.cartIds}

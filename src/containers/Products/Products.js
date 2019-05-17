@@ -30,28 +30,25 @@ class Products extends Component {
       products=(this.props.products.map((data,index)=>{
         return (
           <div key={index} className={classes.item}>
-            <ModalContext.Consumer>
-              {
-                ({setItemName,toggleModal})=>(
-                  <Item
-                    toggleModal={toggleModal}
-                    setItemName={setItemName}
-                    wishlistIds={this.props.wishlist_ids}
-                    cartIds={this.props.item_ids}
-                    data={data}
-                    add={this.props.addItemToCartHandler}
-                    remove={this.props.removeItemFromCartHandler}
-                    addToWishlist={this.props.addItemtoWishlistHandler}
-                    removeFromWishlist={this.props.removeItemFromWishlistHandler}
-                    />
-                )
-              }
-
+              <ModalContext.Consumer>
+                  {
+                    ({setItemName,toggleModal})=>(
+                      <Item
+                        toggleModal={toggleModal}
+                        setItemName={setItemName}
+                        wishlistIds={this.props.wishlist_ids}
+                        cartIds={this.props.item_ids}
+                        data={data}
+                        add={this.props.addItemToCartHandler}
+                        remove={this.props.removeItemFromCartHandler}
+                        addToWishlist={this.props.addItemtoWishlistHandler}
+                        removeFromWishlist={this.props.removeItemFromWishlistHandler} />
+                    )
+                  }
               </ModalContext.Consumer>
           </div>
         )
-      }))
-    }
+    }))}
     if(!this.props.products && this.props.fetchProductsFail) {
       products=failureMessage;
       }

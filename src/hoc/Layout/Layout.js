@@ -9,13 +9,7 @@ import BackDrop from '../../components/Backdrop/Backdrop';
 import  { ModalContext } from './modalContext';
 
 class Layout extends Component {
-    state={
-        showSideDrawer:false,
-        showModal:false,
-        itemName:null,
-        toggleModal:this.toggleModalHandler,
-        setItemName:this.setItemName
-    }
+
     toggleModalHandler= () =>{
       this.setState(state=>({
         showModal:!state.showModal
@@ -25,6 +19,13 @@ class Layout extends Component {
       this.setState({
         itemName:name
       })
+    }
+    state={
+        showSideDrawer:false,
+        showModal:false,
+        itemName:null,
+        toggleModal:this.toggleModalHandler,
+        setItemName:this.setItemName
     }
     toggleSideDrawerHandler = ()=>{
         this.setState(state=>({

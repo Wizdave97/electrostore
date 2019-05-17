@@ -11,6 +11,8 @@ import * as actions from '../../store/actions/productsActions';
 import * as cartActions from '../../store/actions/cartActions';
 import * as wishlistActions from '../../store/actions/wishlistActions';
 import Spinner from '../../components/Spinner/Spinner';
+import { ModalContext } from '../../hoc/Layout/modalContext';
+import Modal from '../../components/Modal/Modal';
 
 class Home extends Component{
 
@@ -29,15 +31,23 @@ class Home extends Component{
     let justIn=<Spinner/>
     let failureMessage=<Typography variant='body1' align='center'> An error occurred please check your network</Typography>
     if(this.props.editors_choice && this.props.fetchEditorsChoiceSuccess) {
-      editorsChoice=(<EditorsChoice
-                          wishlistIds={this.props.wishlist_ids}
-                          cartIds={this.props.item_ids}
-                          editors_choice={this.props.editors_choice}
-                          add={this.props.addItemToCartHandler}
-                          remove={this.props.removeItemFromCartHandler}
-                          addToWishlist={this.props.addItemtoWishlistHandler}
-                          removeFromWishlist={this.props.removeItemFromWishlistHandler}
-                          />
+      editorsChoice=(
+            <ModalContext.Consumer>
+              {
+                ({setItemName,toggleModal})=>(
+                  <EditorsChoice
+                      setItemName={setItemName}
+                      toggleModal={toggleModal}
+                      wishlistIds={this.props.wishlist_ids}
+                      cartIds={this.props.item_ids}
+                      editors_choice={this.props.editors_choice}
+                      add={this.props.addItemToCartHandler}
+                      remove={this.props.removeItemFromCartHandler}
+                      addToWishlist={this.props.addItemtoWishlistHandler}
+                      removeFromWishlist={this.props.removeItemFromWishlistHandler} />
+                )
+              }
+            </ModalContext.Consumer>
 
                       )
     }
@@ -45,15 +55,23 @@ class Home extends Component{
       editorsChoice=failureMessage
     }
     if(this.props.just_in && this.props.fetchJustInSuccess) {
-      justIn=(<EditorsChoice
+      justIn=(  <ModalContext.Consumer>
+          {
+            ({setItemName,toggleModal})=>(
+              <EditorsChoice
+                  setItemName={setItemName}
+                  toggleModal={toggleModal}
                   wishlistIds={this.props.wishlist_ids}
                   cartIds={this.props.item_ids}
                   editors_choice={this.props.just_in}
                   add={this.props.addItemToCartHandler}
                   remove={this.props.removeItemFromCartHandler}
                   addToWishlist={this.props.addItemtoWishlistHandler}
-                  removeFromWishlist={this.props.removeItemFromWishlistHandler}
-                  />)
+                  removeFromWishlist={this.props.removeItemFromWishlistHandler} />
+            )
+          }
+        </ModalContext.Consumer>
+      )
     }
     else if(!this.props.just_in && this.props.fetchJustInFail) {
       justIn=failureMessage
@@ -99,6 +117,13 @@ class Home extends Component{
           </div>
           <Brands/>
         </Grid>
+        <ModalContext.Consumer>
+          {
+            ({itemName,toggleModal,showModal})=>(
+              <Modal show={showModal} itemname={itemName} handleClose={toggleModal}  />
+            )
+          }
+        </ModalContext.Consumer>
       </Fragment>
     )
   }

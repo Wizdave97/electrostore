@@ -6,9 +6,6 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
         fontFamily:'"Sofia", sans-serif',
         flexGrow:1
     },
-    nav:{
-        boxShadow:'none'
-    },
     logoContainer:{
         width:'48px',
         height:'48px',
@@ -44,23 +41,47 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
           textDecoration:'none'
         }
     },
+    hitsPosition:{
+      minWidth:'500px',
+      top:'auto',
+      left:'calc((100% -  500px) / 2)'
+    },
     inputRoot: {
         color: 'inherit',
         width: '100%',
-      },
-    inputInput: {
-        paddingTop: theme.spacing.unit,
-        paddingRight: theme.spacing.unit,
-        paddingBottom: theme.spacing.unit,
-        paddingLeft: theme.spacing.unit * 10,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('md')]: {
-          width: 200,
+        display:'flex',
+        '& form ':{
+          color: 'inherit',
+          width: '100%',
+          display:'flex',
+          position:'relative',
+          boxSizing:'border-box'
         },
+        '& form input':{
+          color: 'inherit',
+          paddingTop: theme.spacing.unit,
+          paddingRight: theme.spacing.unit,
+          paddingBottom: theme.spacing.unit,
+          paddingLeft: theme.spacing.unit,
+          backgroundColor: 'transparent',
+          transition: theme.transitions.create('width'),
+          flex:1,
+          minHeight:'100%',
+          border:'none',
+          [theme.breakpoints.up('md')]: {
+            width: 200,
+          },
+        },
+        '& form button':{
+          outline:'none',
+          minHeight:'100%',
+          backgroundColor: 'transparent',
+          border:'none'
+        }
     },
     search: {
         position: 'relative',
+        boxSizing:'border-box',
         borderRadius: theme.shape.borderRadius,
         borderColor:theme.palette.primary.dark,
         backgroundColor: fade(theme.palette.common.black, 0.15),
