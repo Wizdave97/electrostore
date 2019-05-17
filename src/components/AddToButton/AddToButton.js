@@ -5,7 +5,7 @@ import { orange } from '@material-ui/core/colors';
 const styles= theme=>({
   button:{
     position:'absolute',
-    zIndex:1200,
+    zIndex:1000,
     padding:'10px',
     boxSizing:'border-box',
     cursor:'pointer',

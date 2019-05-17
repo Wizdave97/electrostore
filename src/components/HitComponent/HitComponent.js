@@ -1,8 +1,9 @@
 import React from 'react';
 import {Paper,List,ListItem,ListItemText } from '@material-ui/core';
-import { createBrowserHistory } from 'history';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import { connectHits } from 'react-instantsearch-dom'
+import { connectHits } from 'react-instantsearch-dom';
+import AlgoliaLogo from '../../assets/algolia.png';
 
 
 const styles= theme =>({
@@ -16,7 +17,13 @@ const styles= theme =>({
   listItem:{
     display:'flex',
     flexWrap:'nowrap',
-    cursor:'pointer'
+    cursor:'pointer',
+    '& a':{
+      textDecoration:'none',
+      display:'flex',
+      flexWrap:'nowrap',
+      color:'inherit'
+    }
   },
   imgContainer:{
     width:'25%',
@@ -27,28 +34,33 @@ const styles= theme =>({
   },
   show:{
     display:'flex !important'
-  }
+  },
+
 })
-const viewSearchDetail =(id)=> {
-  const history=createBrowserHistory()
-  history.push('/cart')
-}
+
 const hits =(props)=>{
   const { classes } = props
+  const viewSearchDetail =(id)=> {
+    if(props.toggleSideDrawer) props.toggleSideDrawer()
+    props.setQuery('')
+  }
   return (
     <Paper className={[classes.root,props.position,props.show?classes.show:' '].join(' ')} square={true}>
         <List>
           { props.hits.map(hit=>{
             return(
               <ListItem onClick={()=> viewSearchDetail('2')} className={classes.listItem} key={hit.objectID}>
+                <Link to='/cart'>
                 <div className={classes.imgContainer}>
                   <img src={hit.img}/>
                 </div>
                 <ListItemText>{hit.title}</ListItemText>
+                </Link>
               </ListItem>
             )
           })}
         </List>
+        <div className={classes.imgContainer}><img src={AlgoliaLogo} alt='algolia search'/></div>
     </Paper>
   )
 }

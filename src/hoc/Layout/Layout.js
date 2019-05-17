@@ -52,7 +52,12 @@ class Layout extends Component {
                         </Grid>
                 </main>
                 </div>
-                <SideDrawer wishes={this.props.wishes} quantity={this.props.quantity} sumTotal={this.props.sumTotal} show={this.state.showSideDrawer}/>
+                <SideDrawer
+                  wishes={this.props.wishes}
+                  toggleSideDrawer={this.toggleSideDrawerHandler}
+                  quantity={this.props.quantity}
+                  sumTotal={this.props.sumTotal}
+                  show={this.state.showSideDrawer}/>
             </Fragment>
         )
     }

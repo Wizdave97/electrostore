@@ -32,24 +32,28 @@ const SideDrawer = props => {
                         analytics={false}
                         distinct
                         />
-                      <Hits show={query} position={classes.hitsPosition}/>
+                      <Hits
+                        show={query}
+                        setQuery={setQuery}
+                        toggleSideDrawer={props.toggleSideDrawer}
+                        position={classes.hitsPosition}/>
               </InstantSearch>
             </div>
             </ListItem>
             <Divider light/>
-            <Link to='/'><ListItem button><Home/><ListItemText primary="Home"/></ListItem></Link>
+            <Link to='/'><ListItem onClick={()=>props.toggleSideDrawer()} button><Home/><ListItemText primary="Home"/></ListItem></Link>
             <Divider light/>
             <ListItem button><AccountCircle/><ListItemText primary="My Account"/></ListItem>
             <Divider light/>
-            <Link to='/cart'><ListItem button>
+            <Link to='/cart'><ListItem onClick={()=>props.toggleSideDrawer()} button>
               <Badge style={{margin:'4px'}} color='secondary' badgeContent={props.quantity}><ShoppingCart/></Badge>
               <ListItemText primary="Cart"/></ListItem></Link>
             <Divider light/>
-            <Link to='/wishlist'><ListItem button>
+            <Link to='/wishlist'><ListItem onClick={()=>props.toggleSideDrawer()} button>
               <Badge style={{margin:'4px'}} color='secondary' badgeContent={props.wishes}><Shop/></Badge>
               <ListItemText primary="My Wishlist"/></ListItem></Link>
             <Divider light/>
-            <Link to='/products'><ListItem button><Category/><ListItemText primary="Products"/></ListItem></Link>
+            <Link to='/products'><ListItem onClick={()=>props.toggleSideDrawer()} button><Category/><ListItemText primary="Products"/></ListItem></Link>
           </List>
         </Paper>
     )

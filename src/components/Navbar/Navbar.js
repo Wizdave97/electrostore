@@ -35,7 +35,7 @@ const Navbar = props =>{
                         analytics={false}
                         distinct
                         />
-                      <Hits show={query} position={classes.hitsPosition}/>
+                      <Hits show={query} setQuery={setQuery} position={classes.hitsPosition}/>
               </InstantSearch>
             </div>
             <div className={classes.menuItems}>
