@@ -32,6 +32,7 @@ class Layout extends Component {
             showSideDrawer:!state.showSideDrawer
         }))
     }
+
     render(){
         const { classes } = this.props
 

@@ -20,6 +20,7 @@ class Products extends Component {
     if(!this.props.products || this.props.fetchProductsFail){
       this.props.onFetchProducts();
     }
+    
   }
   static contextType= ModalContext
   render() {

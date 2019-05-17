@@ -12,7 +12,6 @@ const modal= props =>{
     <Dialog
       open={props.show}
       TransitionComponent={Transition}
-      keepMounted
       onClose={props.handleClose}
       aria-labelledby='modal-title'
       aria-describedby='modal-content'
