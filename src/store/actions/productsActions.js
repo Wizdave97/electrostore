@@ -26,11 +26,13 @@ export const fetchProductsAsync =() =>{
 export const fetchEditorsChoiceAsync= ()=>{
   return dispatch =>{
     dispatch(fetchSync(null, actionTypes.FETCH_EDITORS_CHOICE))
-    fetch(`https://electrostore-bb2a3.firebaseio.com/smartphones.json?orderBy="editors_choice"&equalTo=true`).
-    then(response=> {
+    fetch(`https://electrostore-bb2a3.firebaseio.com/smartphones.json?orderBy="editors_choice"&equalTo=true`).then(response=> {
+      if(response.status!==200){
+        dispatch(fetchSync(null, actionTypes.FETCH_EDITORS_CHOICE_FAIL))
+        return null
+      }
       return response.json()}
     ).then(data=>{
-      console.log(data.status)
       dispatch(fetchSync(data, actionTypes.FETCH_EDITORS_CHOICE_SUCCESS))
     }).catch(err=>{
       dispatch(fetchSync(null, actionTypes.FETCH_EDITORS_CHOICE_FAIL))
@@ -41,8 +43,11 @@ export const fetchEditorsChoiceAsync= ()=>{
 export const fetchJustInAsync= ()=>{
   return dispatch =>{
     dispatch(fetchSync(null, actionTypes.FETCH_JUST_IN))
-    fetch(`https://electrostore-bb2a3.firebaseio.com/smartphones.json?orderBy="just_in"&equalTo=true`).
-    then(response=> {
+    fetch(`https://electrostore-bb2a3.firebaseio.com/smartphones.json?orderBy="just_in"&equalTo=true`).then(response=> {
+      if(response.status!==200){
+        dispatch(fetchSync(null, actionTypes.FETCH_JUST_IN_FAIL))
+        return null
+      }
       return response.json()}
     ).then(data=>{
       console.log(data.status)

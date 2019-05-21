@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Paper, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 import AddToButton from '../AddToButton/AddToButton';
@@ -37,7 +38,9 @@ const Item = props => {
   return (
     <Paper square={true} className={classes.card} >
       <div className={[classes.media,'media'].join(' ')}>
-          <img src={props.data.img} alt={props.data.title}/>
+          <Link to={`/details/${props.data.id}`} >
+            <img src={props.data.img} alt={props.data.title}/>
+          </Link>
           <AddToButton label={'Add to wishlist'}
             wishified={setWishifiedHandler}
             clicked={state.wishified?props.removeFromWishlist:props.addToWishlist}

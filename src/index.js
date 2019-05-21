@@ -27,6 +27,12 @@ const theme= createMuiTheme({
             } ,
             'h4':{
               fontFamily:'"Sofia", "Roboto", sans-serif'
+            },
+            'h5':{
+              fontFamily:'"Sofia", "Roboto", sans-serif'
+            },
+            'h6':{
+              fontFamily:'"Sofia", "Roboto", sans-serif'
             }
         }
     },

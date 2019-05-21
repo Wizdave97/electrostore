@@ -17,13 +17,18 @@ const styles = theme =>({
     padding:'30px',
     position:'relative',
     boxSizing:'border-box',
-    '& img':{
+    '& a':{
+      width:'100%',
+      display:'flex',
+      boxSizing:'border-box',
+    },
+    '& a img':{
       maxWidth:'100%',
       height:'auto',
       animation:'scaleup 0.5s linear 2s',
       transition:'transform 2s'
     },
-    '&:hover img':{
+    '&:hover a img':{
       transform:'scale(1.2,1.2)'
     }
   },

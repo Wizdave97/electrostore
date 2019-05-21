@@ -19,7 +19,7 @@ const Navbar = props =>{
        <AppBar position='fixed'>
         <Toolbar>
             <div className={classes.logoContainer}> <img src={Logo} className={classes.logo} alt="Electro store"/></div>
-            <Typography align='center' classes={{root:classes.logoTextMd}} className={classes.logoText} color="default" variant='h5'>ELECTROSTORE</Typography>
+            <Typography align='center' classes={{root:classes.logoTextMd}} className={classes.logoText} color="default" variant='h5'>MOBSTORE</Typography>
             <div className={classes.search}>
               <InstantSearch searchClient={searchClient} indexName="products">
                 <SearchBox className={classes.inputRoot}

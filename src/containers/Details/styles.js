@@ -1,0 +1,50 @@
+const styles = theme =>({
+  imgContainer:{
+    width:'100%',
+    padding:'40px',
+    display:'flex',
+    flexWrap:'nowrap',
+    boxSizing:'border-box',
+    [theme.breakpoints.up('sm')]:{
+      padding:'70px'
+    },
+    '& img':{
+      width:'100%',
+      height:'auto'
+    }
+  },
+  details:{
+    width:'100%',
+    display:'flex',
+    flexWrap:'wrap',
+    padding:'40px',
+    boxSizing:'border-box'
+  },
+  text:{
+    width:'100%',
+    display:'flex',
+    flexWrap:'wrap'
+  },
+  actions:{
+    width:'100%',
+    display:'flex',
+    justifyContent:'space-between',
+    flexWrap:'wrap'
+  },
+  info:{
+    width:'100%',
+    display:'flex',
+    flexWrap:'wrap',
+    alignContent:'center',
+    boxSizing:'border-box'
+  },
+  description:{
+    width:'100%',
+    display:'flex',
+    flexWrap:'wrap',
+    alignContent:'center',
+    boxSizing:'border-box'
+  }
+})
+
+export default styles;

@@ -9,6 +9,7 @@
     "algoliasearch": "^3.33.0",
     "dotenv": "^8.0.0",
     "firebase": "^6.0.2",
+    "form-serialize": "^0.7.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

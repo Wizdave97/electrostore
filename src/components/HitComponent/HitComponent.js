@@ -50,9 +50,9 @@ const hits =(props)=>{
           { props.hits.map(hit=>{
             return(
               <ListItem onClick={()=> viewSearchDetail('2')} className={classes.listItem} key={hit.objectID}>
-                <Link to='/cart'>
+                <Link to={`/details/${hit.id}`}>
                 <div className={classes.imgContainer}>
-                  <img src={hit.img}/>
+                  <img src={hit.img} alt={hit.title}/>
                 </div>
                 <ListItemText>{hit.title}</ListItemText>
                 </Link>
