@@ -19,10 +19,24 @@ const emailPattern=`^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{
      this.setState(state=>({
        isSignUp:!state.isSignUp
      }))
+
    }
    componentDidMount() {
      this.props.updateCurrentView('/auth')
-     document.addEventListener('blur',this.validityChecker,true)
+
+   }
+   componentDidUpdate(prevState,nextState) {
+     if(!nextState.isSignUp) {
+       document.addEventListener('blur',this.validityChecker,true)
+
+     }
+     if(nextState.isSignUp) {
+        document.removeEventListener('blur',this.validityChecker,true)
+        let inputs =Array.from(document.querySelectorAll('input'))
+        for(let input of inputs){
+          removeError(input)
+        }
+      }
    }
    componentWillUnmount() {
      this.props.updateCurrentView('')
@@ -89,7 +103,9 @@ const emailPattern=`^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{
                    id='password'
                    label="Password"
                    type="password"
-                   min="8"
+                   inputProps={{
+                     minLength:8
+                   }}
                    name="password"
                    variant="standard"
                    autoComplete="password"
