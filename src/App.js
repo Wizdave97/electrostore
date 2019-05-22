@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Layout from './hoc/Layout/Layout';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import AsyncComponent from './utils/asyncComponent';
+import { autoSignIn } from './store/actions/authActions';
 
 const AsyncHome=AsyncComponent(()=>{
   return import('./containers/Home/Home')
@@ -35,6 +37,8 @@ class App extends Component{
   }
   componentDidMount() {
     this.generatePayPalScript();
+    this.props.onAutoSignIn();
+
   }
   generatePayPalScript =() => {
     let script= document.createElement('script');
@@ -57,4 +61,11 @@ class App extends Component{
     )
   }
 }
-export default App;
+
+const mapStateToProps= state=>({
+
+})
+const mapDispatchToProps= dispatch =>({
+  onAutoSignIn: ()=> dispatch(autoSignIn())
+})
+export default connect(mapStateToProps,mapDispatchToProps)(App);
