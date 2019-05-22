@@ -41,7 +41,13 @@ class Layout extends Component {
 
                 <div className={[classes.root,this.state.showSideDrawer?classes.show:''].join(' ')} >
                 {this.state.showSideDrawer?<BackDrop showSideDrawer={this.state.showSideDrawer} toggleSideDrawer={this.toggleSideDrawerHandler}/>:''}
-                <Navbar wishes={this.props.wishes} quantity={this.props.quantity} sumTotal={this.props.sumTotal} toggleSideDrawer={this.toggleSideDrawerHandler}/>
+                <Navbar
+                  wishes={this.props.wishes}
+                  quantity={this.props.quantity}
+                  sumTotal={this.props.sumTotal}
+                  toggleSideDrawer={this.toggleSideDrawerHandler}
+                  currentView={this.props.currentView}
+                  />
                 <main className={classes.main} style={{padding:8}}>
                     <Grid
                         container
@@ -54,6 +60,7 @@ class Layout extends Component {
                 </main>
                 </div>
                 <SideDrawer
+                  currentView={this.props.currentView}
                   wishes={this.props.wishes}
                   toggleSideDrawer={this.toggleSideDrawerHandler}
                   quantity={this.props.quantity}

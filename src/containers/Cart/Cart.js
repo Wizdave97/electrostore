@@ -12,6 +12,7 @@ class Cart extends Component {
 
   componentDidMount(){
     //this.props.onFetchCart();
+  
   }
   render() {
     const  { classes } = this.props;

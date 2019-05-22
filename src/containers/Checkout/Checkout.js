@@ -9,6 +9,8 @@ const emailPattern=`^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{
 
 class Checkout extends Component {
 
+
+
   submitCheckoutForm = (event) =>{
     event.preventDefault();
     let form=document.getElementById('checkout-form');

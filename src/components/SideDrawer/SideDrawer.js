@@ -18,6 +18,7 @@ const SideDrawer = props => {
           <List className={classes.list}>
             <ListItem button>
               <div className={classes.search}>
+                {props.currentView==='/auth'?null:
               <InstantSearch  searchClient={searchClient} indexName="products">
                 <SearchBox className={classes.inputRoot}
                       submit={<Search/>}
@@ -37,7 +38,8 @@ const SideDrawer = props => {
                         setQuery={setQuery}
                         toggleSideDrawer={props.toggleSideDrawer}
                         position={classes.hitsPosition}/>
-              </InstantSearch>
+                    </InstantSearch>
+                  }
             </div>
             </ListItem>
             <Divider light/>

@@ -1,28 +1,38 @@
 import React, { Component } from 'react';
 import Layout from './hoc/Layout/Layout';
 import { Switch, Route } from 'react-router-dom';
-import asyncComponent from './utils/asyncComponent';
+import AsyncComponent from './utils/asyncComponent';
 
-const asyncHome=asyncComponent(()=>{
+const AsyncHome=AsyncComponent(()=>{
   return import('./containers/Home/Home')
 })
-const AsyncProducts=asyncComponent(()=>{
+const AsyncProducts=AsyncComponent(()=>{
   return import('./containers/Products/Products')
 })
-const asyncCart=asyncComponent(()=>{
+const AsyncCart=AsyncComponent(()=>{
   return import('./containers/Cart/Cart')
 })
-const asyncWishlist=asyncComponent(()=>{
+const AsyncWishlist=AsyncComponent(()=>{
   return import('./containers/Wishlist/Wishlist')
 })
-const asyncDetails=asyncComponent(()=>{
+const AsyncDetails=AsyncComponent(()=>{
   return import('./containers/Details/Details')
 })
-const asyncCheckout=asyncComponent(()=>{
+const AsyncCheckout=AsyncComponent(()=>{
   return import('./containers/Checkout/Checkout')
 })
+const AsyncAuth=AsyncComponent(()=>{
+  return import('./containers/Auth/Auth')
+})
 class App extends Component{
-
+  state={
+    currentView:'/'
+  }
+  updateCurrentView = (str) =>{
+    this.setState({
+      currentView:str
+    })
+  }
   componentDidMount() {
     this.generatePayPalScript();
   }
@@ -33,14 +43,15 @@ class App extends Component{
   }
   render(){
     return(
-      <Layout>
+      <Layout currentView={this.state.currentView}>
         <Switch>
-          <Route path="/" exact component={asyncHome}/>
-          <Route path="/products" {...this.props} exact render={()=> <AsyncProducts />}/>
-          <Route path="/cart" exact component={asyncCart}/>
-          <Route path="/wishlist" exact component={asyncWishlist}/>
-          <Route path="/details/:id" exact component={asyncDetails}/>
-          <Route path="/checkout" exact component={asyncCheckout}/>
+          <Route path="/" exact component={AsyncHome}/>
+          <Route path="/products"  exact component={AsyncProducts }/>
+          <Route path="/cart" exact component={AsyncCart}/>
+          <Route path="/wishlist" exact component={AsyncWishlist}/>
+          <Route path="/details/:id" exact component={AsyncDetails}/>
+          <Route path="/checkout" exact component={AsyncCheckout}/>
+          <Route path="/auth" exact render={()=> <AsyncAuth updateCurrentView={this.updateCurrentView}/>}/>
         </Switch>
       </Layout>
     )

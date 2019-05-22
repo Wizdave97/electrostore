@@ -21,6 +21,7 @@ const Navbar = props =>{
             <div className={classes.logoContainer}> <img src={Logo} className={classes.logo} alt="Electro store"/></div>
             <Typography align='center' classes={{root:classes.logoTextMd}} className={classes.logoText} color="default" variant='h5'>MOBSTORE</Typography>
             <div className={classes.search}>
+              { props.currentView==='/auth'?null:
               <InstantSearch searchClient={searchClient} indexName="products">
                 <SearchBox className={classes.inputRoot}
                       submit={<Search/>}
@@ -37,6 +38,7 @@ const Navbar = props =>{
                         />
                       <Hits show={query} setQuery={setQuery} position={classes.hitsPosition}/>
               </InstantSearch>
+            }
             </div>
             <div className={classes.menuItems}>
               <NavItem to={'/'}>Home</NavItem>
