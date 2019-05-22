@@ -5,6 +5,7 @@ const styles = theme => ({
   auth:{
     width:'100%',
     display:'flex',
+    flexWrap:'wrap',
     alignSelf:'center'
   },
   authForm:{
