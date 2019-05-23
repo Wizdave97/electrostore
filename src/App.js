@@ -26,6 +26,9 @@ const AsyncCheckout=AsyncComponent(()=>{
 const AsyncAuth=AsyncComponent(()=>{
   return import('./containers/Auth/Auth')
 })
+const AsyncProfile=AsyncComponent(()=>{
+  return import('./containers/Profile/Profile')
+})
 class App extends Component{
   state={
     currentView:'/'
@@ -55,6 +58,7 @@ class App extends Component{
           <Route path="/wishlist" exact component={AsyncWishlist}/>
           <Route path="/details/:id" exact component={AsyncDetails}/>
           <Route path="/checkout" exact component={AsyncCheckout}/>
+          <Route path="/profile" exact component={AsyncProfile}/>
           <Route path="/auth" exact render={()=> <AsyncAuth updateCurrentView={this.updateCurrentView}/>}/>
         </Switch>
       </Layout>

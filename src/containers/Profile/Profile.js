@@ -1,5 +1,8 @@
 import React , { Component, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router-dom';
+import Logo from '../../logo.svg';
+import Spinner from '../../components/Spinner/Spinner';
 import { connect } from 'react-redux';
 import { Grid, Paper, Typography, Button, TextField, } from '@material-ui/core';
 import styles from './styles';
@@ -24,7 +27,7 @@ class Profile extends Component {
             <div className={classes.logoContainer}><div><img src={Logo} alt="mob store"/></div></div>
             <div className={classes.heading}>
               <Typography variant="h5" color="secondary" align="center" gutterBottom>
-                {isSignUp?'Update your profile':'Create your profile'}
+                {isUpdate?'Update your profile':'Create your profile'}
               </Typography>
             </div>
             <div className={classes.profileDetails}>
@@ -86,7 +89,6 @@ class Profile extends Component {
     }
     if (this.props.error || this.props.uploadingImageFail) {
       let errorMessage='An Error Ocurred please retry';
-      }
       profileForm=(
         <Fragment>
           <Typography
@@ -98,6 +100,8 @@ class Profile extends Component {
           {form}
         </Fragment>
       )
+      }
+
       return (
         <React.Fragment>
           {this.props.success?<Redirect to='/' />:null}
