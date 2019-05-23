@@ -6,10 +6,17 @@ import Navbar from '../../components/Navbar/Navbar';
 import styles from './styles';
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
 import BackDrop from '../../components/Backdrop/Backdrop';
+import Notification from '../../components/Notification/Notification';
 import  { ModalContext } from './modalContext';
+
 
 class Layout extends Component {
 
+
+
+    deleteNotification= () =>{
+      this.setState({showNotification:false})
+    }
     toggleModalHandler= () =>{
       this.setState(state=>({
         showModal:!state.showModal
@@ -25,17 +32,24 @@ class Layout extends Component {
         showModal:false,
         itemName:null,
         toggleModal:this.toggleModalHandler,
-        setItemName:this.setItemName
+        setItemName:this.setItemName,
+        showNotification:true
     }
     toggleSideDrawerHandler = ()=>{
         this.setState(state=>({
             showSideDrawer:!state.showSideDrawer
         }))
     }
+    componentDidMount(){
+      setTimeout(()=>{
+        this.setState({
+          showNotification:false
+        })
+      },3000)
+    }
 
     render(){
         const { classes } = this.props
-
         return(
             <Fragment>
 
@@ -66,6 +80,7 @@ class Layout extends Component {
                   quantity={this.props.quantity}
                   sumTotal={this.props.sumTotal}
                   show={this.state.showSideDrawer}/>
+                {this.props.isAuthenticated && this.state.showNotification ?<Notification hideNotification={this.deleteNotification} />:null}
             </Fragment>
         )
     }
@@ -73,6 +88,7 @@ class Layout extends Component {
 const mapStateToProps = state =>({
   quantity:state.cart.quantity,
   sumTotal:state.cart.sumTotal,
-  wishes:state.wishlist.quantity
+  wishes:state.wishlist.quantity,
+  isAuthenticated: state.auth.idToken!==null
 })
 export default connect(mapStateToProps)(withStyles(styles)(Layout));

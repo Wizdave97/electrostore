@@ -8,7 +8,7 @@ const navItem = props =>{
     const { classes } = props;
     return(
 
-          <div className={[classes.menu, props.show?props.show:''].join(' ')} role='button' tabIndex='0'>
+          <div onClick={()=>props.click?props.click():null} {...props} className={[classes.menu, props.show?props.show:''].join(' ')} role='button' tabIndex='0'>
             <NavLink to={props.to} className={classes.navText}>
               <Typography className={classes.navText} align='center' variant='body1' color='default'>
                   {props.children}

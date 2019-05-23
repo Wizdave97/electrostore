@@ -4,6 +4,7 @@
         width:'100%',
         display:'flex',
         flexWrap:'wrap',
+        position:'relative',
         order:1,
         transition:'transform 0.5s'
     },
@@ -22,7 +23,8 @@
         display:'flex',
         flexWrap:'wrap',
         marginTop:'64px'
-    }
+    },
+
 })
 
 export default styles

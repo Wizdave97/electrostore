@@ -4,7 +4,9 @@ import Hits from '../HitComponent/HitComponent';
 import { withStyles } from '@material-ui/core/styles';
 import NavItem from '../NavItem/NavItem';
 import { Menu, Search, ShoppingCart } from '@material-ui/icons';
-import Logo from '../../logo.svg'
+import Logo from '../../logo.svg';
+import ToolTip from '../ToolTip/ToolTip';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import styles from './styles';
 import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch, SearchBox, Configure } from 'react-instantsearch-dom';
@@ -15,6 +17,18 @@ const searchClient = algoliasearch('MDJ9DY7L3L', 'e27633f869dc3179a2458014005e9b
 const Navbar = props =>{
    const  { classes } = props;
    const [query,setQuery]=useState('');
+   const [arrowRef,setArrowRef]= useState(null);
+   const [toolTipOpen,setToolTipOpen]= useState(false);
+   const handleArrowRef = node => {
+      setArrowRef(node);
+    };
+  const  handleTooltipClose = () => {
+    setToolTipOpen(false);
+  };
+
+  const handleTooltipOpen = () => {
+    setToolTipOpen(true);
+  };
    return  (
        <AppBar position='fixed'>
         <Toolbar>
@@ -44,7 +58,11 @@ const Navbar = props =>{
               <NavItem to={'/'}>Home</NavItem>
               <NavItem to={'/products'}>Products</NavItem>
               <NavItem to={'/wishlist'} show={classes.wishlist}><Badge style={{margin:'4px'}} badgeContent={props.wishes} color="secondary">My WishList</Badge></NavItem>
-              <NavItem to={'/'} show={classes.account}>My Account</NavItem>
+              <ClickAwayListener onClickAway={handleTooltipClose}>
+                <ToolTip open={toolTipOpen} handleTooltipClose={handleTooltipClose} handleArrowRef={handleArrowRef} arrowRef={arrowRef}>
+                  <NavItem to={window.location.path} show={classes.account} click={handleTooltipOpen}>My Account</NavItem>
+                </ToolTip>
+              </ClickAwayListener>
               <NavItem to={'/cart'}><Badge style={{margin:'4px'}} badgeContent={props.quantity} color="secondary"><ShoppingCart aria-label='cart'/></Badge></NavItem>
             </div>
             <Menu onClick={()=>props.toggleSideDrawer()} aria-haspopup="true" role='button' tabIndex='0' className={classes.menuIcon}/>
