@@ -78,6 +78,8 @@ class Layout extends Component {
                 </div>
                 <SideDrawer
                   logOut={this.props.onLogOut}
+                  username={this.props.userName}
+                  photoUrl={this.props.photoUrl}
                   currentView={this.props.currentView}
                   wishes={this.props.wishes}
                   toggleSideDrawer={this.toggleSideDrawerHandler}
@@ -94,7 +96,8 @@ const mapStateToProps = state =>({
   sumTotal:state.cart.sumTotal,
   wishes:state.wishlist.quantity,
   isAuthenticated: state.auth.idToken!==null,
-  userName:state.auth.userName
+  userName:state.auth.userName,
+  photoUrl:state.auth.photoUrl
 })
 const mapDispatchToProps= dispatch =>({
   onLogOut:() => dispatch(actions.authLogout())

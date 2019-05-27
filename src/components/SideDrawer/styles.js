@@ -26,7 +26,18 @@ const styles = theme=>({
     profile:{
       width:'100%',
       height:'25%',
-      backgroundColor:theme.palette.secondary.light
+      display:'flex',
+      flexWrap:'wrap',
+      backgroundColor:theme.palette.secondary.light,
+    },
+    picture:{
+      alignSelf:'center',
+      height:'100px',
+      width:'40%',
+      borderRadius:'50%',
+      marginLeft:'auto',
+      marginRight:'auto',
+      backgroundSize:'cover'
     },
     list:{
       width:'100%',
