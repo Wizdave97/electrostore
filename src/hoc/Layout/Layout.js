@@ -8,6 +8,7 @@ import SideDrawer from '../../components/SideDrawer/SideDrawer';
 import BackDrop from '../../components/Backdrop/Backdrop';
 import Notification from '../../components/Notification/Notification';
 import  { ModalContext } from './modalContext';
+import * as actions from '../../store/actions/authActions';
 
 
 class Layout extends Component {
@@ -56,11 +57,13 @@ class Layout extends Component {
                 <div className={[classes.root,this.state.showSideDrawer?classes.show:''].join(' ')} >
                 {this.state.showSideDrawer?<BackDrop showSideDrawer={this.state.showSideDrawer} toggleSideDrawer={this.toggleSideDrawerHandler}/>:''}
                 <Navbar
+                  logOut={this.props.onLogOut}
                   wishes={this.props.wishes}
                   quantity={this.props.quantity}
                   sumTotal={this.props.sumTotal}
                   toggleSideDrawer={this.toggleSideDrawerHandler}
                   currentView={this.props.currentView}
+                  isAuthenticated={this.props.isAuthenticated}
                   />
                 <main className={classes.main} style={{padding:8}}>
                     <Grid
@@ -74,13 +77,14 @@ class Layout extends Component {
                 </main>
                 </div>
                 <SideDrawer
+                  logOut={this.props.onLogOut}
                   currentView={this.props.currentView}
                   wishes={this.props.wishes}
                   toggleSideDrawer={this.toggleSideDrawerHandler}
                   quantity={this.props.quantity}
                   sumTotal={this.props.sumTotal}
                   show={this.state.showSideDrawer}/>
-                {this.props.isAuthenticated && this.state.showNotification ?<Notification hideNotification={this.deleteNotification} />:null}
+                {this.props.isAuthenticated && !this.props.userName && this.state.showNotification ?<Notification hideNotification={this.deleteNotification} />:null}
             </Fragment>
         )
     }
@@ -89,6 +93,10 @@ const mapStateToProps = state =>({
   quantity:state.cart.quantity,
   sumTotal:state.cart.sumTotal,
   wishes:state.wishlist.quantity,
-  isAuthenticated: state.auth.idToken!==null
+  isAuthenticated: state.auth.idToken!==null,
+  userName:state.auth.userName
 })
-export default connect(mapStateToProps)(withStyles(styles)(Layout));
+const mapDispatchToProps= dispatch =>({
+  onLogOut:() => dispatch(actions.authLogout())
+})
+export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Layout));

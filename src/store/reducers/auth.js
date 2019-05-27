@@ -6,10 +6,12 @@ const initialState={
   localId:null,
   userName:null,
   userEmail:null,
-  profileUrl:null,
+  photoUrl:null,
   loading:false,
   error:false,
-  success:false
+  success:false,
+  fetchProfilefail:false,
+  fetchProfileSuccess:false
 }
 
 const reducer =( state=initialState,action)=>{
@@ -20,6 +22,9 @@ const reducer =( state=initialState,action)=>{
       if(action.data) return updateObject(state, {error: action.data.error.message,loading:false, success:false})
       else return updateObject(state, {error: true, loading: false, success: false})
     case actionTypes.AUTH_LOGOUT: return updateObject(state, {idToken:null,localId:null})
+    case actionTypes.FETCH_PROFILE_INFO: return updateObject(state,{})
+    case actionTypes.FETCH_PROFILE_INFO_SUCCESS: return updateObject(state, {fetchProfileSuccess:true,photoUrl:action.data.photoUrl,userName:action.data.name})
+    case actionTypes.FETCH_PROFILE_INFO_FAIL:return updateObject(state,{fetchProfilefail:true})
     default: return state
   }
 }

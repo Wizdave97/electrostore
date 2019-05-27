@@ -13,8 +13,26 @@ const storeAuthInfo= (data) =>{
   const authData={idToken:data.idToken,localId:data.localId,expiresIn:expiresIn}
   localStorage.mobstore=JSON.stringify(authData);
 }
+const fetchProfileInfoSync= (type,data)=>({
+  type:type,
+  data:data
+})
+const fetchProfileInfoAsync =(dispatch,getState)=>{
+    dispatch(fetchProfileInfoSync(actionTypes.FETCH_PROFILE_INFO,null))
+    const idToken=getState().auth.idToken;
+    const localId=getState().auth.localId;
+    fetch(`https://electrostore-bb2a3.firebaseio.com/users.json?auth=${idToken}&orderBy="userId"&equalTo="${localId}"`).then(response=>{
+      return response.json()
+    }).then(response=>{
+      const key=Object.keys(response)[0];
+      const data=response[key]
+      dispatch(fetchProfileInfoSync(actionTypes.FETCH_PROFILE_INFO_SUCCESS,data))
+    }).catch(err=>{
+      dispatch(fetchProfileInfoSync(actionTypes.FETCH_PROFILE_INFO_FAIL,null))
+    })
+}
 export const authAsync = (authData,isSignUp) =>{
-  return dispatch =>{
+  return (dispatch,getState) =>{
     dispatch(authSync(actionTypes.AUTH_START,null))
     let url=`https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyArs2eYMjFtvxRpRmYqWexaDuQnd0OLX44`;
     if (isSignUp) url =`https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyArs2eYMjFtvxRpRmYqWexaDuQnd0OLX44`;
@@ -27,6 +45,7 @@ export const authAsync = (authData,isSignUp) =>{
       if(response.error) dispatch(authSync(actionTypes.AUTH_FAIL,response))
       else {
         dispatch(authSync(actionTypes.AUTH_SUCCESS, response))
+        fetchProfileInfoAsync(dispatch,getState);
         storeAuthInfo(response)
         authCheckTimeout(response.expiresIn)
       }
@@ -49,12 +68,13 @@ export const authCheckTimeout = (expiresIn) =>{
   }
 }
 export const autoSignIn = () =>{
-  return dispatch =>{
+  return (dispatch,getState) =>{
     if(localStorage.mobstore){
       const authData=JSON.parse(localStorage.mobstore);
       const tokenValidity=new Date().getTime() < Number(authData.expiresIn);
       if (tokenValidity) {
         dispatch(authSync(actionTypes.AUTH_SUCCESS,authData))
+        fetchProfileInfoAsync(dispatch,getState);
       }
       else dispatch(authSync(actionTypes.AUTH_FAIL,null))
     }

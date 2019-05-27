@@ -59,7 +59,7 @@ const Navbar = props =>{
               <NavItem to={'/products'}>Products</NavItem>
               <NavItem to={'/wishlist'} show={classes.wishlist}><Badge style={{margin:'4px'}} badgeContent={props.wishes} color="secondary">My WishList</Badge></NavItem>
               <ClickAwayListener onClickAway={handleTooltipClose}>
-                <ToolTip open={toolTipOpen} handleTooltipClose={handleTooltipClose} handleArrowRef={handleArrowRef} arrowRef={arrowRef}>
+                <ToolTip logOut={props.logOut} isAuthenticated={props.isAuthenticated} open={toolTipOpen} handleTooltipClose={handleTooltipClose} handleArrowRef={handleArrowRef} arrowRef={arrowRef}>
                   <NavItem to={window.location.path} show={classes.account} click={handleTooltipOpen}>My Account</NavItem>
                 </ToolTip>
               </ClickAwayListener>

@@ -6,6 +6,8 @@ import Spinner from '../../components/Spinner/Spinner';
 import { connect } from 'react-redux';
 import { Grid, Paper, Typography, Button, TextField, } from '@material-ui/core';
 import styles from './styles';
+import { readFileAsUrl, imageResize } from '../../utils/imageResize';
+import * as actions from '../../store/actions/profileActions';
 
 
 class Profile extends Component {
@@ -17,6 +19,18 @@ class Profile extends Component {
     this.setState({
       isUpdate:this.props.userName!==null
     })
+  }
+  submitProfileForm= (event) => {
+    event.preventDefault();
+    let name=document.getElementById('name').value;
+    let tel=document.getElementById('tel').value;
+    let photo=document.getElementById('photo').files[0];
+    readFileAsUrl(photo).then(imageUrl=>{
+      imageResize(imageUrl,photo.type).then(image=>{
+        this.props.onSubmitProfile(name,tel,image,photo.type,this.state.isUpdate)
+      })
+    })
+
   }
   render(){
     const { classes } = this.props
@@ -80,11 +94,11 @@ class Profile extends Component {
       profileForm=(
         <Typography
           variant="body1"
-          color="error"
+          color="secondary"
           align="center"
           style={{width:'100%'}}
           gutterBottom>
-          Uploading Image {this.props.ImageUploadProgress} % done
+          Uploading Image {this.props.imageUploadProgress} % done
           </Typography>)
     }
     if (this.props.error || this.props.uploadingImageFail) {
@@ -130,6 +144,6 @@ class Profile extends Component {
     imageUploadProgress:state.profile.imageUploadProgress
   })
   const mapDispatchToProps = dispatch =>({
-
+    onSubmitProfile: (name,tel,img,type,isUpdate)=>dispatch(actions.uploadProfileInfoAsync(name,tel,img,type,isUpdate))
   })
   export default  connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Profile));

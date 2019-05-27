@@ -111,10 +111,10 @@ const toolTip = props => {
           <Fragment>
             <List className={classes.list}>
               <ListItem onClick={props.handleTooltipClose}>
-                <Button component={Link} size='medium' fullWidth to='/profile' variant='outlined' color='primary'>My Profile</Button>
+                <Button component={Link} size='medium' fullWidth to={props.isAuthenticated?'/profile':'/auth'} variant='outlined' color='primary'>My Profile</Button>
               </ListItem>
               <ListItem onClick={props.handleTooltipClose}>
-                <Button component={Link} size='medium' fullWidth to='/' variant='outlined' color='primary'>Logout</Button>
+                <Button component={Link} size='medium' fullWidth to={props.isAuthenticated?'/':'/auth'} onClick={()=>props.isAuthenticated?props.logOut():null} variant='outlined' color='primary'>{props.isAuthenticated?'Logout':'Login'}</Button>
               </ListItem>
             </List>
             <span className={classes.arrow} ref={props.handleArrowRef} />

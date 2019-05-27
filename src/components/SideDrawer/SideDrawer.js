@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Paper, Divider, List, ListItem, ListItemText, Badge } from '@material-ui/core';
+import { Paper, Divider, List, ListItem, ListItemText, Badge,Typography } from '@material-ui/core';
 import Hits from '../HitComponent/HitComponent';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
@@ -14,7 +14,9 @@ const SideDrawer = props => {
     const [query,setQuery]=useState('');
     return(
         <Paper className={[classes.root, props.show?classes.show:''].join(' ')} square={true}>
-          <div className={classes.profile}></div>
+          <div className={classes.profile}>
+            
+          </div>
           <List className={classes.list}>
             <ListItem button>
               <div className={classes.search}>

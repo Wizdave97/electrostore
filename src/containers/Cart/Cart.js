@@ -12,7 +12,7 @@ class Cart extends Component {
 
   componentDidMount(){
     //this.props.onFetchCart();
-  
+
   }
   render() {
     const  { classes } = this.props;
@@ -55,7 +55,13 @@ class Cart extends Component {
           <div className={classes.allCartItems}>
             {cart}
             { this.props.cart.length!==0?<Typography className={classes.checkout} align='center' variant='body1' color='secondary'>Sum Total: ${this.props.sumTotal}</Typography>:null }
-            { this.props.cart.length!==0?<Button className={classes.checkout} size='medium' variant='contained' color='secondary' component={Link} to='/checkout'>Proceed to Checkout</Button>:null }
+            { this.props.cart.length!==0?<Button
+              className={classes.checkout}
+              size='medium'
+              variant='contained'
+              color='secondary'
+              component={Link}
+              to={this.props.isAuthenticated?'/checkout':'/auth'}>{this.props.isAuthenticated?'Proceed to Checkout':'Login to continue checkout'}</Button>:null }
           </div>
         </div>
       </Grid>
@@ -67,7 +73,8 @@ const mapStateToProps= state =>({
   cart:state.cart.cart,
   fetchCartSuccess:state.cart.fetchCartSuccess,
   fetchCartFail:state.cart.fetchCartFail,
-  sumTotal:state.cart.sumTotal
+  sumTotal:state.cart.sumTotal,
+  isAuthenticated:state.auth.idToken!==null
 })
 
 const mapDispatchToProps = dispatch =>({

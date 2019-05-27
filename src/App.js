@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import Layout from './hoc/Layout/Layout';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route,Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AsyncComponent from './utils/asyncComponent';
+import Home from './containers/Home/Home';
 import { autoSignIn } from './store/actions/authActions';
 
-const AsyncHome=AsyncComponent(()=>{
-  return import('./containers/Home/Home')
-})
 const AsyncProducts=AsyncComponent(()=>{
   return import('./containers/Products/Products')
 })
@@ -49,25 +47,41 @@ class App extends Component{
     document.body.appendChild(script);
   }
   render(){
-    return(
-      <Layout currentView={this.state.currentView}>
+    let routes=(
+      <Switch>
+        <Route path="/" exact component={Home}/>
+        <Route path="/products"  exact component={AsyncProducts }/>
+        <Route path="/cart" exact component={AsyncCart}/>
+        <Route path="/wishlist" exact component={AsyncWishlist}/>
+        <Route path="/details/:id" exact component={AsyncDetails}/>
+        <Route path="/auth" exact render={()=> <AsyncAuth updateCurrentView={this.updateCurrentView}/>}/>
+        <Redirect to='/'/>
+    </Switch>
+    )
+    if( this.props.isAuthenticated) {
+      routes=(
         <Switch>
-          <Route path="/" exact component={AsyncHome}/>
+          <Route path="/" exact component={Home}/>
           <Route path="/products"  exact component={AsyncProducts }/>
           <Route path="/cart" exact component={AsyncCart}/>
           <Route path="/wishlist" exact component={AsyncWishlist}/>
           <Route path="/details/:id" exact component={AsyncDetails}/>
+          <Route path="/auth" exact render={()=> <AsyncAuth updateCurrentView={this.updateCurrentView}/>}/>
           <Route path="/checkout" exact component={AsyncCheckout}/>
           <Route path="/profile" exact component={AsyncProfile}/>
-          <Route path="/auth" exact render={()=> <AsyncAuth updateCurrentView={this.updateCurrentView}/>}/>
-        </Switch>
+          <Redirect to='/'/>
+        </Switch>)
+    }
+    return(
+      <Layout currentView={this.state.currentView}>
+        {routes}
       </Layout>
     )
   }
 }
 
 const mapStateToProps= state=>({
-
+  isAuthenticated:state.auth.idToken!==null
 })
 const mapDispatchToProps= dispatch =>({
   onAutoSignIn: ()=> dispatch(autoSignIn())
