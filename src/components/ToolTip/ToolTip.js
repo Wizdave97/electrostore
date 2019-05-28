@@ -73,6 +73,7 @@ const styles = theme => ({
   htmlPopper: arrowGenerator('#dadde9'),
   htmlTooltip: {
     color: 'rgba(0, 0, 0, 0.87)',
+    backgroundColor:theme.palette.primary.light,
     maxWidth: 220,
     fontSize: theme.typography.pxToRem(12),
     border: '1px solid #dadde9',
@@ -111,10 +112,10 @@ const toolTip = props => {
           <Fragment>
             <List className={classes.list}>
               <ListItem onClick={props.handleTooltipClose}>
-                <Button component={Link} size='medium' fullWidth to={props.isAuthenticated?'/profile':'/auth'} variant='outlined' color='primary'>My Profile</Button>
+                <Button component={Link} size='medium' fullWidth to={props.isAuthenticated?'/profile':'/auth'} variant='contained' color='secondary'>My Profile</Button>
               </ListItem>
               <ListItem onClick={props.handleTooltipClose}>
-                <Button component={Link} size='medium' fullWidth to={props.isAuthenticated?'/':'/auth'} onClick={()=>props.isAuthenticated?props.logOut():null} variant='outlined' color='primary'>{props.isAuthenticated?'Logout':'Login'}</Button>
+                <Button component={Link} size='medium' fullWidth to={props.isAuthenticated?'/':'/auth'} onClick={()=>props.isAuthenticated?props.logOut():null} variant='contained' color='secondary'>{props.isAuthenticated?'Logout':'Login'}</Button>
               </ListItem>
             </List>
             <span className={classes.arrow} ref={props.handleArrowRef} />

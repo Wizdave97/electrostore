@@ -24,7 +24,7 @@ const uploadProfileSync= (type,str) =>{
 export const uploadProfileInfoAsync = (name,tel,img,type,isUpdate) =>{
 return (dispatch,getState) =>{
   const idToken=getState().auth.idToken;
-  const storage=firebase.storage();
+
   dispatch(uploadProfileSync(actionTypes.IMAGE_UPLOAD_START, null));
   let file = img
 
