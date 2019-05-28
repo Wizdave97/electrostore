@@ -4,8 +4,6 @@ import Hits from '../HitComponent/HitComponent';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import algoliasearch from 'algoliasearch/lite';
-import ToolTip from '../ToolTip/ToolTip';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import { InstantSearch, SearchBox, Configure } from 'react-instantsearch-dom';
 import { Home, Shop, AccountCircle, Category, Search, ShoppingCart } from '@material-ui/icons'
 import styles from './styles';
@@ -14,19 +12,10 @@ const searchClient = algoliasearch('MDJ9DY7L3L', 'e27633f869dc3179a2458014005e9b
 const SideDrawer = props => {
     const { classes }= props;
     const [query,setQuery]=useState('');
-    const [arrowRef,setArrowRef]= useState(null);
-    const [toolTipOpen,setToolTipOpen]= useState(false);
-    const handleArrowRef = node => {
-       setArrowRef(node);
-     };
-   const  handleTooltipClose = () => {
-     props.toggleSideDrawer();
-     setToolTipOpen(false); 
-   };
-
-   const handleTooltipOpen = () => {
-     setToolTipOpen(true);
-   };
+    const logOut= () =>{
+      props.toggleSideDrawer()
+      if(props.isAuthenticated) props.logOut()
+    }
     return(
         <Paper className={[classes.root, props.show?classes.show:''].join(' ')} square={true}>
           <div className={classes.profile}>
@@ -63,14 +52,12 @@ const SideDrawer = props => {
             <Divider light/>
             <Link to='/'><ListItem onClick={()=>props.toggleSideDrawer()} button><Home/><ListItemText primary="Home"/></ListItem></Link>
             <Divider light/>
-            <ListItem onClick={()=>handleTooltipOpen()} button>
+            <Link to={props.isAuthenticated?'/profile':'/auth'}>
+            <ListItem button onClick={()=>props.toggleSideDrawer()}>
               <AccountCircle/>
-                <ClickAwayListener onClickAway={handleTooltipClose}>
-                  <ToolTip logOut={props.logOut} isAuthenticated={props.isAuthenticated} open={toolTipOpen} handleTooltipClose={handleTooltipClose} handleArrowRef={handleArrowRef} arrowRef={arrowRef}>
-                    <ListItemText  primary="My Account"/>
-                  </ToolTip>
-                </ClickAwayListener>
+                    <ListItemText  primary="My Profile"/>
               </ListItem>
+            </Link>
             <Divider light/>
             <Link to='/cart'><ListItem onClick={()=>props.toggleSideDrawer()} button>
               <Badge style={{margin:'4px'}} color='secondary' badgeContent={props.quantity}><ShoppingCart/></Badge>
@@ -80,7 +67,13 @@ const SideDrawer = props => {
               <Badge style={{margin:'4px'}} color='secondary' badgeContent={props.wishes}><Shop/></Badge>
               <ListItemText primary="My Wishlist"/></ListItem></Link>
             <Divider light/>
-            <Link to='/products'><ListItem onClick={()=>props.toggleSideDrawer()} button><Category/><ListItemText primary="Products"/></ListItem></Link>
+            <Link to='/products'>
+              <ListItem onClick={()=>props.toggleSideDrawer()} button><Category/><ListItemText primary="Products"/></ListItem>
+            </Link>
+            <Divider light/>
+            <Link to={props.isAuthenticated?'/':'/auth'}><ListItem onClick={()=> logOut()} button>
+              <AccountCircle/>
+              <ListItemText primary={props.isAuthenticated?'Logout':'Login'}/></ListItem></Link>
           </List>
         </Paper>
     )

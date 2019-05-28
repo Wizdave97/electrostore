@@ -50,11 +50,11 @@ class App extends Component{
     let routes=(
       <Switch>
         <Route path="/" exact component={Home}/>
-        <Route path="/products"  exact component={AsyncProducts }/>
-        <Route path="/cart" exact component={AsyncCart}/>
-        <Route path="/wishlist" exact component={AsyncWishlist}/>
-        <Route path="/details/:id" exact component={AsyncDetails}/>
-        <Route path="/auth" exact render={()=> <AsyncAuth updateCurrentView={this.updateCurrentView}/>}/>
+        <Route path="/products"   component={AsyncProducts }/>
+        <Route path="/cart"  component={AsyncCart}/>
+        <Route path="/wishlist"  component={AsyncWishlist}/>
+        <Route path="/details/:id"  component={AsyncDetails}/>
+        <Route path="/auth"  render={()=> <AsyncAuth updateCurrentView={this.updateCurrentView}/>}/>
         <Redirect to='/'/>
     </Switch>
     )
@@ -62,13 +62,13 @@ class App extends Component{
       routes=(
         <Switch>
           <Route path="/" exact component={Home}/>
-          <Route path="/products"  exact component={AsyncProducts }/>
-          <Route path="/cart" exact component={AsyncCart}/>
-          <Route path="/wishlist" exact component={AsyncWishlist}/>
-          <Route path="/details/:id" exact component={AsyncDetails}/>
-          <Route path="/auth" exact render={()=> <AsyncAuth updateCurrentView={this.updateCurrentView}/>}/>
-          <Route path="/checkout" exact component={AsyncCheckout}/>
-          <Route path="/profile" exact component={AsyncProfile}/>
+          <Route path="/products"   component={AsyncProducts }/>
+          <Route path="/cart"  component={AsyncCart}/>
+          <Route path="/wishlist"  component={AsyncWishlist}/>
+          <Route path="/details/:id"  component={AsyncDetails}/>
+          <Route path="/auth"  render={()=> <AsyncAuth updateCurrentView={this.updateCurrentView}/>}/>
+          <Route path="/checkout"  component={AsyncCheckout}/>
+          <Route path="/profile"  component={AsyncProfile}/>
           <Redirect to='/'/>
         </Switch>)
     }
