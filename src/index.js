@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, combineReducers , compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { red } from '@material-ui/core/colors';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import { auth, cart, products, wishlist, profile } from './store/reducers';
 
@@ -56,11 +56,11 @@ const theme= createMuiTheme({
 })
 const app=(
   <Provider store={store}>
-  <BrowserRouter>
+  <HashRouter>
   <MuiThemeProvider theme={theme}>
       <App />
   </MuiThemeProvider>
-  </BrowserRouter>
+</HashRouter>
 </Provider>
 
 )
