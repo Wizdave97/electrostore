@@ -11,13 +11,17 @@ import * as actions from '../../store/actions/wishlistActions';
 class Wishlist extends Component {
 
   componentDidMount(){
-    //this.props.onFetchWishlist();
+    if(this.props.wishlist.length==0 && this.props.isAuthenticated) this.props.onFetchWishlist(this.props.userId);
+
+  }
+  componentWillUnmount(){
+    if(this.props.isAuthenticated) this.props.pushWishlistToBackend(this.props.wishlist,this.props.userId)
   }
   render() {
     const  { classes } = this.props;
     let wishlist=<Spinner/>;
     let failureMessage=<Typography variant='body1' align='center' style={{width:'100%'}}> An error occurred please check your network</Typography>;
-    if(this.props.wishlist.length===0 && this.props.fetchWishlistSuccess){
+    if((this.props.wishlist.length===0 && this.props.fetchWishlistSuccess) || !this.props.isAuthenticated){
       wishlist=(
         <React.Fragment>
           <Typography variant='body1' align='center' style={{width:'100%'}}> Your wishlist is empty continue shopping to add items to your wishlist</Typography>
@@ -62,12 +66,16 @@ class Wishlist extends Component {
 
 const mapStateToProps= state =>({
   wishlist:state.wishlist.wishlist,
+  userId:state.auth.localId,
   fetchWishlistSuccess:state.wishlist.fetchWishlistSuccess,
-  fetchWishlistFail:state.wishlist.fetchWishlistFail
+  fetchWishlistFail:state.wishlist.fetchWishlistFail,
+  isAuthenticated:state.auth.idToken!==null
 })
 
 const mapDispatchToProps = dispatch =>({
-  removeFromWishlist:(obj)=> dispatch(actions.removeFromWishlist(obj))
+  removeFromWishlist:(obj)=> dispatch(actions.removeFromWishlist(obj)),
+  onFetchWishlist:(userId)=>dispatch(actions.fetchWishlist(userId)),
+  pushWishlistToBackend:(cart,userId)=> dispatch(actions.pushWishlistToBackendAsync(cart,userId))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Wishlist));

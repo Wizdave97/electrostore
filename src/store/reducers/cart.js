@@ -28,10 +28,13 @@ const removeFromCart =(state,obj) =>{
   newState.sumTotal=sumTotal;
   return updateObject(state, newState);
 }
+
 const reducer = ( state=initialState,action)=>{
   switch (action.type) {
     case actionTypes.ADD_TO_CART: return addToCart(state, action.data)
     case actionTypes.REMOVE_FROM_CART: return removeFromCart(state, action.data)
+    case actionTypes.FETCH_CART_SUCCESS: return updateObject(state,{fetchCartFail:false,fetchCartSuccess:true})
+    case actionTypes.FETCH_CART_FAIL: return updateObject(state,{fetchCartFail:true,fetchCartSuccess:false})
     default: return state
   }
 

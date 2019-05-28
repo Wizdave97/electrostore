@@ -20,7 +20,8 @@ const SideDrawer = props => {
        setArrowRef(node);
      };
    const  handleTooltipClose = () => {
-     setToolTipOpen(false);
+     props.toggleSideDrawer();
+     setToolTipOpen(false); 
    };
 
    const handleTooltipOpen = () => {

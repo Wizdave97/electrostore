@@ -4,7 +4,9 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState={
   item_ids:[],
   wishlist:[],
-  quantity:0
+  quantity:0,
+  fetchWishlistFail:false,
+  fetchWishlistSuccess:false
 }
 
 const addToWishlist = (state,obj) => {
@@ -25,6 +27,8 @@ const reducer = ( state=initialState,action)=>{
   switch (action.type) {
     case actionTypes.ADD_TO_WISHLIST: return addToWishlist(state, action.data)
     case actionTypes.REMOVE_FROM_WISHLIST: return removeFromWishlist(state, action.data)
+    case actionTypes.FETCH_WISHLIST_SUCCESS: return updateObject(state,{fetchWishlistFail:false,fetchWishlistSuccess:true})
+    case actionTypes.FETCH_WISHLIST_FAIL: return updateObject(state,{fetchWishlistFail:true,fetchWishlistSuccess:false})
     default: return state
   }
 

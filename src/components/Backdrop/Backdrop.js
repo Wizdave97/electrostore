@@ -8,7 +8,7 @@ const styles =theme =>({
     top:0,
     left:0,
     display:'none',
-    height:'100%',
+    minHeight:'100%',
     backgroundColor:'rgb(0,0,0)',
     opacity:0,
     zIndex:2500,

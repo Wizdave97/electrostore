@@ -11,14 +11,17 @@ import * as actions from '../../store/actions/cartActions';
 class Cart extends Component {
 
   componentDidMount(){
-    //this.props.onFetchCart();
+    if(this.props.cart.length==0 && this.props.isAuthenticated) this.props.onFetchCart(this.props.userId);
 
+  }
+  componentWillUnmount(){
+    if(this.props.isAuthenticated) this.props.pushCartToBackend(this.props.cart,this.props.userId)
   }
   render() {
     const  { classes } = this.props;
     let cart=<Spinner/>;
     let failureMessage=<Typography variant='body1' align='center' style={{width:'100%'}}> An error occurred please check your network</Typography>;
-    if(this.props.cart.length===0 && this.props.fetchCartSuccess){
+    if((this.props.cart.length===0 && this.props.fetchCartSuccess) || !this.props.isAuthenticated){
       cart=(
         <React.Fragment>
           <Typography variant='body1' align='center' style={{width:'100%'}}> Your cart is empty continue shopping to add items to your cart</Typography>
@@ -71,6 +74,7 @@ class Cart extends Component {
 
 const mapStateToProps= state =>({
   cart:state.cart.cart,
+  userId:state.auth.localId,
   fetchCartSuccess:state.cart.fetchCartSuccess,
   fetchCartFail:state.cart.fetchCartFail,
   sumTotal:state.cart.sumTotal,
@@ -78,7 +82,9 @@ const mapStateToProps= state =>({
 })
 
 const mapDispatchToProps = dispatch =>({
-  removeFromCart:(obj)=> dispatch(actions.removeFromCart(obj))
+  removeFromCart:(obj)=> dispatch(actions.removeFromCart(obj)),
+  onFetchCart:(userId)=>dispatch(actions.fetchCart(userId)),
+  pushCartToBackend:(cart,userId)=> dispatch(actions.pushCartToBackendAsync(cart,userId))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Cart));

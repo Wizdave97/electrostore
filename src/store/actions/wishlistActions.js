@@ -19,19 +19,49 @@ export const pushWishlistToBackendSync= (type)=>{
     type:type
   }
 }
-export const pushWishlistToBackendAsync= (wishlist,userId)=>{
-  for(let obj of wishlist) {
-    obj.userId=userId
+export const fetchWishlistSync= (type,data)=>{
+  return {
+    type:type,
+    data:data
   }
-  return dispatch=>{
-    dispatch(pushWishlistToBackendSync(actionTypes.ADD_WISHLIST_TO_BACKEND));
-    fetch(`https://electrostore-bb2a3.firebaseio.com/wishlist.json`,{
-      method:'POST',
-      body:JSON.stringify(wishlist)
-    }).then(response=>response.json()).then(response=>{
-      dispatch(pushWishlistToBackendSync(actionTypes.ADD_WISHLIST_TO_BACKEND_SUCCESS))
+}
+export const fetchWishlist= (userId) =>{
+  return (dispatch,getState)=>{
+    const idToken=getState().auth.idToken
+    dispatch(pushWishlistToBackendSync(actionTypes.FETCH_WISHLIST));
+    fetch(`https://electrostore-bb2a3.firebaseio.com/wishlist.json?auth=${idToken}&orderBy="userId"&equalTo="${userId}"`).then(response=>{
+      return response.json()
+    }).then(response=>{
+      let keys=Object.keys(response)
+      if(keys.length!==0){
+        for(let key of keys){
+          dispatch(addToWishlist(response[key]))
+        }
+      }
+      dispatch(fetchWishlistSync(actionTypes.FETCH_WISHLIST_SUCCESS, response))
     }).catch(err=>{
-      dispatch(pushWishlistToBackendSync(actionTypes.ADD_WISHLIST_TO_BACKEND_FAIL))
+      dispatch(fetchWishlistSync(actionTypes.FETCH_WISHLIST_FAIL,null))
     })
+  }
+
+}
+export const pushWishlistToBackendAsync= (wishlist,userId)=>{
+  wishlist=[...wishlist];
+  for(let obj of wishlist) {
+    obj["userId"]=userId
+  }
+  return (dispatch,getState)=>{
+    const idToken=getState().auth.idToken
+    dispatch(pushWishlistToBackendSync(actionTypes.ADD_WISHLIST_TO_BACKEND));
+    for(let obj of wishlist) {
+      fetch(`https://electrostore-bb2a3.firebaseio.com/wishlist.json?auth=${idToken}`,{
+        method:'POST',
+        body:JSON.stringify(obj)
+      }).then(response=>response.json()).then(response=>{
+        dispatch(pushWishlistToBackendSync(actionTypes.ADD_WISHLIST_TO_BACKEND_SUCCESS))
+      }).catch(err=>{
+        dispatch(pushWishlistToBackendSync(actionTypes.ADD_WISHLIST_TO_BACKEND_FAIL))
+      })
+    }
   }
 }

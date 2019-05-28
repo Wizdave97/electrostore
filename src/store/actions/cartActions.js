@@ -19,19 +19,49 @@ export const pushCartToBackendSync= (type)=>{
     type:type
   }
 }
-export const pushCartToBackendAsync= (cart,userId)=>{
-  for(let obj of cart) {
-    obj.userId=userId
+export const fetchCartSync= (type,data)=>{
+  return {
+    type:type,
+    data:data
   }
-  return dispatch=>{
-    dispatch(pushCartToBackendSync(actionTypes.ADD_CART_TO_BACKEND));
-    fetch(`https://electrostore-bb2a3.firebaseio.com/cart.json`,{
-      method:'POST',
-      body:JSON.stringify(cart)
-    }).then(response=>response.json()).then(response=>{
-      dispatch(pushCartToBackendSync(actionTypes.ADD_CART_TO_BACKEND_SUCCESS))
+}
+export const fetchCart= (userId) =>{
+  return (dispatch,getState)=>{
+    const idToken=getState().auth.idToken
+    dispatch(pushCartToBackendSync(actionTypes.FETCH_CART));
+    fetch(`https://electrostore-bb2a3.firebaseio.com/cart.json?auth=${idToken}&orderBy="userId"&equalTo="${userId}"`).then(response=>{
+      return response.json()
+    }).then(response=>{
+      let keys=Object.keys(response)
+      if(keys.length!==0){
+        for(let key of keys){
+          dispatch(addToCart(response[key]))
+        }
+      }
+      dispatch(fetchCartSync(actionTypes.FETCH_CART_SUCCESS, response))
     }).catch(err=>{
-      dispatch(pushCartToBackendSync(actionTypes.ADD_CART_TO_BACKEND_FAIL))
+      dispatch(fetchCartSync(actionTypes.FETCH_CART_FAIL,null))
     })
+  }
+
+}
+export const pushCartToBackendAsync= (cart,userId)=>{
+  cart=[...cart];
+  for(let obj of cart) {
+    obj["userId"]=userId
+  }
+  return (dispatch,getState)=>{
+    const idToken=getState().auth.idToken
+    dispatch(pushCartToBackendSync(actionTypes.ADD_CART_TO_BACKEND));
+    for(let obj of cart) {
+      fetch(`https://electrostore-bb2a3.firebaseio.com/cart.json?auth=${idToken}`,{
+        method:'POST',
+        body:JSON.stringify(obj)
+      }).then(response=>response.json()).then(response=>{
+        dispatch(pushCartToBackendSync(actionTypes.ADD_CART_TO_BACKEND_SUCCESS))
+      }).catch(err=>{
+        dispatch(pushCartToBackendSync(actionTypes.ADD_CART_TO_BACKEND_FAIL))
+      })
+    }
   }
 }

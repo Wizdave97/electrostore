@@ -78,6 +78,7 @@ class Layout extends Component {
                 </div>
                 <SideDrawer
                   logOut={this.props.onLogOut}
+                  isAuthenticated={this.props.isAuthenticated}
                   username={this.props.userName}
                   photoUrl={this.props.photoUrl}
                   currentView={this.props.currentView}

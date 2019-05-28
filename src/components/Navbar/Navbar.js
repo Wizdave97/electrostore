@@ -55,15 +55,15 @@ const Navbar = props =>{
             }
             </div>
             <div className={classes.menuItems}>
-              <NavItem to={'/'}>Home</NavItem>
-              <NavItem to={'/products'}>Products</NavItem>
-              <NavItem to={'/wishlist'} show={classes.wishlist}><Badge style={{margin:'4px'}} badgeContent={props.wishes} color="secondary">My WishList</Badge></NavItem>
+              <NavItem to={'/'} click={()=>null}>Home</NavItem>
+              <NavItem to={'/products'} click={()=>null}>Products</NavItem>
+              <NavItem to={'/wishlist'} show={classes.wishlist} click={()=>null}><Badge style={{margin:'4px'}} badgeContent={props.wishes} color="secondary">My WishList</Badge></NavItem>
               <ClickAwayListener onClickAway={handleTooltipClose}>
                 <ToolTip logOut={props.logOut} isAuthenticated={props.isAuthenticated} open={toolTipOpen} handleTooltipClose={handleTooltipClose} handleArrowRef={handleArrowRef} arrowRef={arrowRef}>
                   <NavItem to={window.location.path} show={classes.account} click={handleTooltipOpen}>My Account</NavItem>
                 </ToolTip>
               </ClickAwayListener>
-              <NavItem to={'/cart'}><Badge style={{margin:'4px'}} badgeContent={props.quantity} color="secondary"><ShoppingCart aria-label='cart'/></Badge></NavItem>
+              <NavItem to={'/cart'} click={()=>null} ><Badge style={{margin:'4px'}} badgeContent={props.quantity} color="secondary"><ShoppingCart aria-label='cart'/></Badge></NavItem>
             </div>
             <Menu onClick={()=>props.toggleSideDrawer()} aria-haspopup="true" role='button' tabIndex='0' className={classes.menuIcon}/>
         </Toolbar>
