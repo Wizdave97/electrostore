@@ -23,6 +23,9 @@ class Home extends Component{
     if(!this.props.editors_choice || this.props.fetchEditorsChoiceFail){
       this.props.onFetchEditorsChoice();
     }
+    if(!this.props.products || this.props.fetchProductsFail){
+      this.props.onFetchProducts();
+    }
   }
 
   render(){
@@ -131,6 +134,8 @@ class Home extends Component{
 
 const mapStateToProps = state =>({
   editors_choice:state.products.editors_choice,
+  products:state.products.products,
+  fetchProductsFail:state.products.fetchProductsFail,
   just_in:state.products.just_in,
   item_ids:state.cart.item_ids,
   wishlist_ids:state.wishlist.item_ids,
@@ -141,6 +146,7 @@ const mapStateToProps = state =>({
 })
 
 const mapDispatchToProps = dispatch => ({
+  onFetchProducts: ()=>dispatch(actions.fetchProductsAsync()),
   onFetchEditorsChoice:()=> dispatch(actions.fetchEditorsChoiceAsync()),
   onFetchJustIn:()=> dispatch(actions.fetchJustInAsync()),
   addItemToCartHandler: (obj)=> dispatch(cartActions.addToCart(obj)),

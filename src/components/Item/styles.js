@@ -2,7 +2,6 @@
 const styles = theme =>({
   card:{
     width:'100%',
-    height:'auto',
     overflow:'hidden',
     boxSizing:'border-box',
     margin:'5px 0',
@@ -19,7 +18,7 @@ const styles = theme =>({
     boxSizing:'border-box',
     '& a':{
       width:'100%',
-      display:'flex',
+      display:'inline-block',
       boxSizing:'border-box',
     },
     '& a img':{
