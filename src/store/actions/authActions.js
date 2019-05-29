@@ -13,9 +13,10 @@ const storeAuthInfo= (data) =>{
   const authData={idToken:data.idToken,localId:data.localId,expiresIn:expiresIn}
   localStorage.mobstore=JSON.stringify(authData);
 }
-const fetchProfileInfoSync= (type,data)=>({
+const fetchProfileInfoSync= (type,data,key)=>({
   type:type,
-  data:data
+  data:data,
+  key:key
 })
 const fetchProfileInfoAsync =(dispatch,getState)=>{
     dispatch(fetchProfileInfoSync(actionTypes.FETCH_PROFILE_INFO,null))
@@ -26,9 +27,9 @@ const fetchProfileInfoAsync =(dispatch,getState)=>{
     }).then(response=>{
       const key=Object.keys(response)[0];
       const data=response[key]
-      dispatch(fetchProfileInfoSync(actionTypes.FETCH_PROFILE_INFO_SUCCESS,data))
+      dispatch(fetchProfileInfoSync(actionTypes.FETCH_PROFILE_INFO_SUCCESS,data,key))
     }).catch(err=>{
-      dispatch(fetchProfileInfoSync(actionTypes.FETCH_PROFILE_INFO_FAIL,null))
+      dispatch(fetchProfileInfoSync(actionTypes.FETCH_PROFILE_INFO_FAIL,null,null))
     })
 }
 export const authAsync = (authData,isSignUp) =>{

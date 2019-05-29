@@ -13,28 +13,58 @@ import * as actions from '../../store/actions/profileActions';
 class Profile extends Component {
 
   state={
-    isUpdate:false
+    isUpdate:false,
+    name:null,
+    tel:null
   }
   componentDidMount() {
     this.setState({
-      isUpdate:this.props.userName!==null
+      isUpdate:this.props.userName!==null,
+      tel:this.props.tel,
+      name:this.props.userName
     })
+  }
+  handleInputChange= (e,field) =>{
+    switch(field) {
+      case 'name':
+        this.setState({name:e.target.value})
+        break;
+      case 'tel':
+        this.setState({tel:e.target.value})
+        break;
+      default: return null
+    }
   }
   submitProfileForm= (event) => {
     event.preventDefault();
     let name=document.getElementById('name').value;
     let tel=document.getElementById('tel').value;
     let photo=document.getElementById('photo').files[0];
-    readFileAsUrl(photo).then(imageUrl=>{
-      imageResize(imageUrl,photo.type).then(image=>{
-        this.props.onSubmitProfile(name,tel,image,photo.type,this.state.isUpdate)
+    if(!this.state.isUpdate) {
+      readFileAsUrl(photo).then(imageUrl=>{
+        imageResize(imageUrl,photo.type).then(image=>{
+          this.props.onSubmitProfile(name,tel,image,photo.type,this.state.isUpdate)
+        })
       })
-    })
-
+    }
+    if(this.state.isUpdate) {
+      if(photo){
+        readFileAsUrl(photo).then(imageUrl=>{
+          imageResize(imageUrl,photo.type).then(image=>{
+            this.props.onSubmitProfile(name,tel,image,photo.type,this.state.isUpdate)
+          })
+        })
+      }
+      else {
+        this.props.submitProfileWithoutPicture(name,tel)
+      }
+    }
+  }
+  componentDidUpdate (prevState,nextState) {
   }
   render(){
     const { classes } = this.props
-    const { isUpdate } = this.state
+    const { isUpdate,name,tel } = this.state
     let form=(<Fragment>
         <Paper className={classes.paper}>
           <form className={classes.form} noValidate={true} onSubmit={(event)=>this.submitProfileForm(event)}>
@@ -52,6 +82,8 @@ class Profile extends Component {
                 label="Full Name"
                 type="text"
                 name="name"
+                value={isUpdate && name ?name:' '}
+                onChange={(event)=> this.handleInputChange(event, 'name')}
                 variant="standard"
                 autoComplete="name"
                 fullWidth
@@ -64,6 +96,8 @@ class Profile extends Component {
                 label="Telephone Number"
                 type="tel"
                 name="phone"
+                value={isUpdate && tel?tel:' '}
+                onChange={(event)=> this.handleInputChange(event, 'tel')}
                 variant="standard"
                 autoComplete="tel"
                 fullWidth
@@ -135,6 +169,7 @@ class Profile extends Component {
   }
   const mapStateToProps= state =>({
     userName:state.auth.userName,
+    tel:state.auth.tel,
     loading:state.profile.loading,
     success:state.profile.success,
     error:state.profile.success,
@@ -144,6 +179,7 @@ class Profile extends Component {
     imageUploadProgress:state.profile.imageUploadProgress
   })
   const mapDispatchToProps = dispatch =>({
-    onSubmitProfile: (name,tel,img,type,isUpdate)=>dispatch(actions.uploadProfileInfoAsync(name,tel,img,type,isUpdate))
+    onSubmitProfile: (name,tel,img,type,isUpdate)=>dispatch(actions.uploadProfileInfoAsync(name,tel,img,type,isUpdate)),
+    submitProfileWithoutPicture: (name,tel)=>dispatch(actions.uploadProfileWithoutPicture(name,tel))
   })
   export default  connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Profile));

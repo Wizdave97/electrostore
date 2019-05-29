@@ -20,7 +20,22 @@ const uploadProfileSync= (type,str) =>{
     data:str
   }
 }
-
+export const uploadProfileWithoutPicture =(name,tel) =>{
+  return (dispatch,getState)=>{
+    dispatch(uploadProfileSync(actionTypes.PROFILE_UPLOAD_START,null));
+    const profile={name:name,tel:tel}
+    const key=getState().auth.key;
+    const idToken=getState().auth.idToken;
+    fetch(`https://electrostore-bb2a3.firebaseio.com/users/${key}.json?auth=${idToken}`,{
+      method:'PATCH',
+      body:JSON.stringify(profile)
+    }).then(response=>response.json()).then(response=>{
+      dispatch(uploadProfileSync(actionTypes.PROFILE_UPLOAD_SUCCESS,null));
+    }).catch(err=>{
+      dispatch(uploadProfileSync(actionTypes.PROFILE_UPLOAD_FAIL,null))
+    });
+  }
+}
 export const uploadProfileInfoAsync = (name,tel,img,type,isUpdate) =>{
 return (dispatch,getState) =>{
   const idToken=getState().auth.idToken;
@@ -59,22 +74,44 @@ return (dispatch,getState) =>{
 
       const profile={name:name,userId:userId,tel:tel,photoUrl:downloadURL}
       dispatch(uploadProfileSync(actionTypes.PROFILE_UPLOAD_START,null));
-      fetch(`https://electrostore-bb2a3.firebaseio.com/users.json?auth=${idToken}`,{
-        method:'POST',
-        body:JSON.stringify(profile)
-      }).then(response=>response.json()).then(response=>{
-        dispatch(uploadProfileSync(actionTypes.PROFILE_UPLOAD_SUCCESS,null));
-      }).catch(err=>{
-        dispatch(uploadProfileSync(actionTypes.PROFILE_UPLOAD_FAIL,null))
-        // Create a reference to the file to delete
-        var desertRef = storageRef.child('profilePictures/'+name+'.'+ext);
-        // Delete the file
-        desertRef.delete().then(function() {
-          // File deleted successfully
-        }).catch(function(error) {
-          // Uh-oh, an error occurred!
-        });
-      });
+        if(isUpdate){
+          const key=getState().auth.key;
+          fetch(`https://electrostore-bb2a3.firebaseio.com/users/${key}.json?auth=${idToken}`,{
+            method:'PATCH',
+            body:JSON.stringify(profile)
+          }).then(response=>response.json()).then(response=>{
+            dispatch(uploadProfileSync(actionTypes.PROFILE_UPLOAD_SUCCESS,null));
+          }).catch(err=>{
+            dispatch(uploadProfileSync(actionTypes.PROFILE_UPLOAD_FAIL,null))
+            // Create a reference to the file to delete
+            var desertRef = storageRef.child('profilePictures/'+name+'.'+ext);
+            // Delete the file
+            desertRef.delete().then(function() {
+              // File deleted successfully
+            }).catch(function(error) {
+              // Uh-oh, an error occurred!
+            });
+          });
+        }
+        else {
+          fetch(`https://electrostore-bb2a3.firebaseio.com/users.json?auth=${idToken}`,{
+            method:'POST',
+            body:JSON.stringify(profile)
+          }).then(response=>response.json()).then(response=>{
+            dispatch(uploadProfileSync(actionTypes.PROFILE_UPLOAD_SUCCESS,null));
+          }).catch(err=>{
+            dispatch(uploadProfileSync(actionTypes.PROFILE_UPLOAD_FAIL,null))
+            // Create a reference to the file to delete
+            var desertRef = storageRef.child('profilePictures/'+name+'.'+ext);
+            // Delete the file
+            desertRef.delete().then(function() {
+              // File deleted successfully
+            }).catch(function(error) {
+              // Uh-oh, an error occurred!
+            });
+          });
+        }
+
     });
   });
 }

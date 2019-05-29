@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Layout from './hoc/Layout/Layout';
-import { Switch, Route,Redirect } from 'react-router-dom';
+import { Switch, Route,Redirect,withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AsyncComponent from './utils/asyncComponent';
 import Home from './containers/Home/Home';
@@ -86,4 +86,4 @@ const mapStateToProps= state=>({
 const mapDispatchToProps= dispatch =>({
   onAutoSignIn: ()=> dispatch(autoSignIn())
 })
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(App));

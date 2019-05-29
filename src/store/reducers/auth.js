@@ -7,11 +7,13 @@ const initialState={
   userName:null,
   userEmail:null,
   photoUrl:null,
+  tel:null,
   loading:false,
   error:false,
   success:false,
   fetchProfilefail:false,
-  fetchProfileSuccess:false
+  fetchProfileSuccess:false,
+  key:null,
 }
 
 const reducer =( state=initialState,action)=>{
@@ -21,9 +23,9 @@ const reducer =( state=initialState,action)=>{
     case actionTypes.AUTH_FAIL:
       if(action.data) return updateObject(state, {error: action.data.error.message,loading:false, success:false})
       else return updateObject(state, {error: true, loading: false, success: false})
-    case actionTypes.AUTH_LOGOUT: return updateObject(state, {idToken:null,localId:null,photoUrl:null,userName:null})
+    case actionTypes.AUTH_LOGOUT: return updateObject(state, {idToken:null,localId:null,photoUrl:null,userName:null,success:false,fetchProfileSuccess:false})
     case actionTypes.FETCH_PROFILE_INFO: return updateObject(state,{})
-    case actionTypes.FETCH_PROFILE_INFO_SUCCESS: return updateObject(state, {fetchProfileSuccess:true,photoUrl:action.data.photoUrl,userName:action.data.name})
+    case actionTypes.FETCH_PROFILE_INFO_SUCCESS: return updateObject(state, {fetchProfileSuccess:true,photoUrl:action.data.photoUrl,tel:action.data.tel,userName:action.data.name,key:action.key})
     case actionTypes.FETCH_PROFILE_INFO_FAIL:return updateObject(state,{fetchProfilefail:true})
     default: return state
   }
