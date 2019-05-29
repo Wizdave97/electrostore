@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ded5d75c04ca630f63515bfe2f7ffd45",
+    "revision": "2a44040903f6c3d71a9c0316f71706c7",
     "url": "/electrostore/index.html"
   },
   {
-    "revision": "5e781f9a2d002c698a4f",
+    "revision": "6db58ea1d2fb4b96a5da",
     "url": "/electrostore/static/css/main.bc40ee40.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/electrostore/static/js/10.eb621636.chunk.js"
   },
   {
-    "revision": "7015cd48c7ce3de07742",
-    "url": "/electrostore/static/js/2.5041fa67.chunk.js"
+    "revision": "bdeea725a698f1460362",
+    "url": "/electrostore/static/js/2.23f64d11.chunk.js"
   },
   {
     "revision": "1cb7f60be863ddef2c14",
@@ -24,8 +24,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/electrostore/static/js/4.f14a72e6.chunk.js"
   },
   {
-    "revision": "db9650f5067736dae3e3",
-    "url": "/electrostore/static/js/5.89f87ff1.chunk.js"
+    "revision": "d02f758c6c93f73347fb",
+    "url": "/electrostore/static/js/5.3c74df8e.chunk.js"
   },
   {
     "revision": "b787de92aae4d79a0f19",
@@ -40,16 +40,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/electrostore/static/js/8.41e38364.chunk.js"
   },
   {
-    "revision": "e78c0611f1937be3fb62",
-    "url": "/electrostore/static/js/9.c27e4350.chunk.js"
+    "revision": "e6fd802b35a5d006d523",
+    "url": "/electrostore/static/js/9.11ea5956.chunk.js"
   },
   {
-    "revision": "5e781f9a2d002c698a4f",
-    "url": "/electrostore/static/js/main.9ff7d134.chunk.js"
+    "revision": "6db58ea1d2fb4b96a5da",
+    "url": "/electrostore/static/js/main.01775489.chunk.js"
   },
   {
-    "revision": "5b6137c4f449bae2067e",
-    "url": "/electrostore/static/js/runtime~main.ef1d98ba.js"
+    "revision": "5827fee5133e841c5453",
+    "url": "/electrostore/static/js/runtime~main.7bf46fdf.js"
   },
   {
     "revision": "bafd50ce68c7de668be900a1e0d1e142",
