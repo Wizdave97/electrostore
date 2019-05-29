@@ -2,7 +2,7 @@ const styles = theme =>({
   imgContainer:{
     width:'100%',
     padding:'40px',
-    display:'flex',
+    display:'inline-block',
     flexWrap:'nowrap',
     boxSizing:'border-box',
     [theme.breakpoints.up('sm')]:{
